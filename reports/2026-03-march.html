@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lone Oak Farms — February 2026 Benchmark Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1218;--surface:#171c26;--surface2:#1e2535;
+  --border:#2a3347;--border2:#3a4560;
+  --green:#2dd4a0;--green-dim:#1a7a5e;
+  --amber:#f59e0b;--amber-dim:#7a4e05;
+  --red:#f87171;--red-dim:#7a2020;
+  --blue:#60a5fa;--blue-dim:#1e3a6e;
+  --text:#e8ecf4;--text-dim:#8a95aa;--text-muted:#4a5568;--accent:#2dd4a0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
+.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px}
+.header-farm{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;letter-spacing:.05em}
+.header-id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);background:var(--surface2);padding:2px 8px;border-radius:3px;border:1px solid var(--border);margin-left:12px}
+.header-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);text-align:right}
+.header-badge{display:inline-block;background:var(--green-dim);color:var(--green);border:1px solid var(--green);border-radius:3px;font-size:10px;font-weight:600;letter-spacing:.1em;padding:2px 8px;margin-top:4px}
+.nav-tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 32px;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s;user-select:none}
+.nav-tab:hover{color:var(--text-dim)}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.main{padding:32px;max-width:1400px;margin:0 auto}
+.section{display:none}
+.section.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:32px}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi-card.good::before{background:var(--green)}
+.kpi-card.warn::before{background:var(--amber)}
+.kpi-card.poor::before{background:var(--red)}
+.kpi-card.neutral::before{background:var(--blue)}
+.kpi-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.kpi-value{font-family:'Oswald',sans-serif;font-size:28px;font-weight:500;line-height:1;margin-bottom:6px}
+.kpi-card.good .kpi-value{color:var(--green)}
+.kpi-card.warn .kpi-value{color:var(--amber)}
+.kpi-card.poor .kpi-value{color:var(--red)}
+.kpi-card.neutral .kpi-value{color:var(--blue)}
+.kpi-sub{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+.kpi-pct{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:1px 5px;border-radius:2px}
+.kpi-card.good .kpi-pct{background:var(--green-dim);color:var(--green)}
+.kpi-card.warn .kpi-pct{background:var(--amber-dim);color:var(--amber)}
+.kpi-card.poor .kpi-pct{background:var(--red-dim);color:var(--red)}
+.kpi-card.neutral .kpi-pct{background:var(--blue-dim);color:var(--blue)}
+.pct-bar-wrap{margin-top:10px}
+.pct-bar-track{height:3px;background:var(--border);border-radius:2px}
+.pct-bar-fill{height:100%;border-radius:2px;transition:width .8s cubic-bezier(.16,1,.3,1)}
+.kpi-card.good .pct-bar-fill{background:var(--green)}
+.kpi-card.warn .pct-bar-fill{background:var(--amber)}
+.kpi-card.poor .pct-bar-fill{background:var(--red)}
+.kpi-card.neutral .pct-bar-fill{background:var(--blue)}
+.section-heading{font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-heading::after{content:'';flex:1;height:1px;background:var(--border)}
+.data-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:24px}
+.data-table-title{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface2)}
+table{width:100%;border-collapse:collapse}
+thead th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);padding:10px 16px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+thead th:first-child{text-align:left}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+td{padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:var(--text-dim)}
+td:first-child{text-align:left;color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:13px}
+td.good{color:var(--green)}
+td.warn{color:var(--amber)}
+td.poor{color:var(--red)}
+td.bold{font-weight:600;color:var(--text)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}.three-col{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.three-col{grid-template-columns:1fr}}
+.alert{border-radius:5px;padding:10px 16px;margin-bottom:12px;font-size:13px;display:flex;align-items:flex-start;gap:10px}
+.alert-icon{font-size:14px;line-height:1.5;flex-shrink:0}
+.alert.red{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
+.alert.amber{background:var(--amber-dim);border:1px solid var(--amber);color:var(--amber)}
+.alert.green{background:var(--green-dim);border:1px solid var(--green);color:var(--green)}
+.alert-text{color:var(--text);line-height:1.5}
+.alert-text strong{color:inherit}
+.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:32px}
+.summary-cell{background:var(--surface);padding:18px 20px;text-align:center}
+.summary-cell-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
+.summary-cell-val{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--text);line-height:1}
+.summary-cell-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
+@media(max-width:700px){.summary-row{grid-template-columns:1fr 1fr}}
+.badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:1px 6px;border-radius:2px;font-weight:500}
+.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
+.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber)}
+.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
+.badge-blue{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue)}
+.trend-wrap{overflow-x:auto;margin-bottom:24px}
+.trend-wrap table{min-width:900px}
+.site-footer{border-top:1px solid var(--border);padding:20px 32px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);margin-top:40px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.section.active>*{animation:fadeIn .3s ease both}
+.section.active>*:nth-child(2){animation-delay:.04s}
+.section.active>*:nth-child(3){animation-delay:.08s}
+.section.active>*:nth-child(4){animation-delay:.12s}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div style="display:flex;align-items:baseline">
+    <div class="header-farm">LONE OAK FARMS</div>
+    <div class="header-id">#135</div>
+  </div>
+  <div class="header-meta">
+    <div>EDGE DAIRY CONSULTING — BENCHMARK REPORT</div>
+    <div class="header-badge">FEBRUARY 2026</div>
+  </div>
+</header>
+
+<nav class="nav-tabs">
+  <div class="nav-tab active" onclick="showTab('overview',this)">Overview</div>
+  <div class="nav-tab" onclick="showTab('herd',this)">Herd Data</div>
+  <div class="nav-tab" onclick="showTab('production',this)">Production</div>
+  <div class="nav-tab" onclick="showTab('reproduction',this)">Reproduction</div>
+  <div class="nav-tab" onclick="showTab('heifers',this)">Heifers</div>
+  <div class="nav-tab" onclick="showTab('culling',this)">Culling</div>
+  <div class="nav-tab" onclick="showTab('udder',this)">Udder Health</div>
+  <div class="nav-tab" onclick="showTab('financial',this)">Financial</div>
+  <div class="nav-tab" onclick="showTab('trends',this)">12-Month Trends</div>
+</nav>
+
+<main class="main">
+
+<!-- OVERVIEW -->
+<section id="overview" class="section active">
+  <div class="summary-row">
+    <div class="summary-cell">
+      <div class="summary-cell-label">Total Herd</div>
+      <div class="summary-cell-val">—</div>
+      <div class="summary-cell-sub">Milking Cows + Heifers</div>
+    </div>
+    <div class="summary-cell">
+      <div class="summary-cell-label">Milking Cows</div>
+      <div class="summary-cell-val">—</div>
+      <div class="summary-cell-sub">— of herd</div>
+    </div>
+    <div class="summary-cell">
+      <div class="summary-cell-label">Bulk Tank Milk</div>
+      <div class="summary-cell-val">—</div>
+      <div class="summary-cell-sub">lbs/cow/day</div>
+    </div>
+    <div class="summary-cell">
+      <div class="summary-cell-label">Actual IOFC/Hd</div>
+      <div class="summary-cell-val">$6.35</div>
+      <div class="summary-cell-sub">per cow per day</div>
+    </div>
+  </div>
+
+  <div class="section-heading">Performance vs. EDGE Database</div>
+  <div class="kpi-grid">
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Bulk Tank Milk</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Bulk Tank ECM</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Bulk Tank Fat %</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Bulk Tank Prot %</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">SNF %</div>
+      <div class="kpi-value">—</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">ECM Feed Efficiency</div>
+      <div class="kpi-value">1.59</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Static IOFC/Hd</div>
+      <div class="kpi-value">$6.34</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+    
+    <div class="kpi-card neutral">
+      <div class="kpi-label">Feed Cost/cwt</div>
+      <div class="kpi-value">$10.45</div>
+      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="pct-bar-wrap"><div class="pct-bar-track">
+        <div class="pct-bar-fill" style="width:0%"></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HERD DATA -->
+<section id="herd" class="section">
+  <div class="section-heading">Herd Inventory — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Cow Inventory</div>
+      <table>
+        <thead><tr><th>Category</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Total Herd</td><td class="bold">—</td></tr>
+          <tr><td>Milking</td><td class="good">—</td></tr>
+          <tr><td>% Milking</td><td>—</td></tr>
+          <tr><td>Dry</td><td>—</td></tr>
+          <tr><td>% Dry</td><td>—</td></tr>
+          <tr><td>Lactation 1</td><td>—</td></tr>
+          <tr><td>Lactation >1</td><td>—</td></tr>
+          <tr><td>% Lactation 1</td><td>—</td></tr>
+          <tr><td>Average Lactation</td><td class="bold">—</td></tr>
+          <tr><td>Avg DIM Milking</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Heifer Inventory</div>
+      <table>
+        <thead><tr><th>Category</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Total Heifers 0–24 mo</td><td class="bold">—</td></tr>
+          <tr><td>Heifers 0–12 mo</td><td>—</td></tr>
+          <tr><td>Heifers 13–24 mo</td><td>—</td></tr>
+          <tr><td>Heifers % of Total Herd</td><td>—</td></tr>
+          <tr><td>Cow : Heifer Ratio</td><td class="bold">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-heading">12-Month Trend</div>
+  <div class="trend-wrap">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Herd Data — Monthly</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
+        <tbody>
+          <tr><td>Total Herd</td><td>—</td></tr>
+          <tr><td>Milking</td><td>—</td></tr>
+          <tr><td>% Milking</td><td>—</td></tr>
+          <tr><td>% Dry</td><td>—</td></tr>
+          <tr><td>Avg DIM Milking</td><td>—</td></tr>
+          <tr><td>% Lact=1</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTION -->
+<section id="production" class="section">
+  <div class="section-heading">Milk Production — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Bulk Tank Results</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>EDGE Avg</th><th>12M Avg</th></tr></thead>
+        <tbody>
+          <tr><td>Bulk Tank Milk (lbs)</td><td class="bold">—</td><td>—</td><td>—</td></tr>
+          <tr><td>Bulk Tank ECM</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Bulk Tank MCM</td><td>—</td><td></td><td>—</td></tr>
+          <tr><td>150 Day ACM</td><td>—</td><td></td><td>—</td></tr>
+          <tr><td>Fat %</td><td class="good">—</td><td>—</td><td>—</td></tr>
+          <tr><td>Protein %</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>SNF %</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Early Lactation Milk by Group</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>W4MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W4MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W4MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W8MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W8MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W8MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W12MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W12MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W12MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-heading">Production Trend</div>
+  <div class="trend-wrap">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Bulk Tank — Monthly</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
+        <tbody>
+          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
+          <tr><td>Bulk Tank ECM</td><td>—</td></tr>
+          <tr><td>Bulk Tank Fat %</td><td>—</td></tr>
+          <tr><td>Bulk Tank Prot %</td><td>—</td></tr>
+          <tr><td>Bulk Tank SNF %</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- REPRODUCTION -->
+<section id="reproduction" class="section">
+  <div class="section-heading">Reproductive Performance — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Annual Rolling Rates — All Cows</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Pregnancy Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
+          <tr><td>Heat Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
+          <tr><td>Conception Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
+          <tr><td>Days Open</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Herd Pregnant</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% DNB</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Pregnancy at DIM Thresholds</div>
+      <table>
+        <thead><tr><th>Milestone</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>% Preg at 100 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 150 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 200 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Abortion Rate (Current)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Abortion Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Lact=1 Reproductive Rates</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Lact>1 Reproductive Rates</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- HEIFERS -->
+<section id="heifers" class="section">
+  <div class="section-heading">Heifer Performance — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Heifer Reproduction</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Age at Fresh (mo)</td><td>23.4</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>VWP Heifers</td><td>417</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Pregnancy Rate</td><td>22%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Heat Rate</td><td>42%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Conception Rate</td><td>55%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>60%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 450 Days</td><td>61%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 500 Days</td><td>86%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 550 Days</td><td>90%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Heifer Completion Rate</td><td>84.0%</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Heifer Cull Rates</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Annualized Cull — All</td><td>10.8%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate 0–12 mo</td><td>5.3%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate 13–24 mo</td><td>18.8%</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- CULLING -->
+<section id="culling" class="section">
+  <div class="section-heading">Culling & Mortality — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Early Removal (&lt;60 DIM)</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>% S&amp;D &lt;60 DIM (All)</td><td>7.5%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Sold &lt;60 DIM</td><td>5.8%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Died &lt;60 DIM</td><td>1.6%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% S&amp;D Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% S&amp;D Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Annual Cull Rates</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Cull Rate (Annual)</td><td>37.6%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate Lact=1</td><td>25.9%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate Lact>1</td><td>43.4%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Death Rate (Annual)</td><td>6.5%</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Dry Period — Lact=1</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
+        <tbody>
+          <tr><td>DINCU (days)</td><td>20</td><td>—</td></tr>
+          <tr><td>% &lt;14 Days</td><td>13%</td><td>—</td></tr>
+          <tr><td>% &gt;28 Days</td><td>12%</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Dry Period — Lact>1</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
+        <tbody>
+          <tr><td>DINCU (days)</td><td>22</td><td>—</td></tr>
+          <tr><td>% &lt;14 Days</td><td>4%</td><td>—</td></tr>
+          <tr><td>% &gt;28 Days</td><td>7%</td><td>—</td></tr>
+          <tr><td>DDRY (days)</td><td>58</td><td>—</td></tr>
+          <tr><td>% DDRY &gt;75 Days</td><td>2%</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- UDDER HEALTH -->
+<section id="udder" class="section">
+  <div class="section-heading">Udder Health — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">SCC &amp; Clinical Mastitis</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Bulk Tank SCC</td><td class="bold">3 22,826</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
+          <tr><td>% Clinical Mastitis New</td><td>13.2%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
+          <tr><td>% Clinical Mastitis Repeat</td><td>9.8%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
+          <tr><td>% Mast &lt;30 DIM Lact=1</td><td>3.3%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Mast &lt;30 DIM Lact>1</td><td>7.8%</td><td>—</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">SCC Trend</div>
+      <table>
+        <thead><tr><th>Month</th><th>Bulk Tank SCC</th></tr></thead>
+        <tbody>
+          <tr><td>Feb-26</td><td>3 22,826</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="data-table-wrap">
+    <div class="data-table-title">Calving Outcomes</div>
+    <table>
+      <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+      <tbody>
+        <tr><td>% Heifer Calves</td><td>65.0%</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>% DOA (All)</td><td>1.0%</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>% DOA Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>% DOA Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FINANCIAL -->
+<section id="financial" class="section">
+  <div class="section-heading">Financial Performance — February 2026</div>
+  <div class="two-col">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Milk Pricing</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+        <tbody>
+          <tr><td>Mailbox Milk $/cwt</td><td class="bold">$17.52</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Class III $/cwt</td><td>$14.52</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Class IV $/cwt</td><td>$16.29</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Statistical Uniform $/cwt</td><td>$15.02</td><td></td><td></td><td></td></tr>
+          <tr><td>PPD $/cwt</td><td>$0.50</td><td></td><td></td><td></td></tr>
+          <tr><td>Class III Fat $/lb</td><td>$1.779</td><td></td><td></td><td></td></tr>
+          <tr><td>Class III Protein $/lb</td><td>$1.937</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="data-table-wrap">
+      <div class="data-table-title">Feed Costs &amp; IOFC</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Current</th><th>%ile</th><th>EDGE Avg</th></tr></thead>
+        <tbody>
+          <tr><td>DMI Milk Cows</td><td>59.5</td><td>—</td><td>—</td></tr>
+          <tr><td>ECM Feed Efficiency</td><td>1.59</td><td>—</td><td>—</td></tr>
+          <tr><td>Feed Cost/Hd/Day</td><td>$7.91</td><td>—</td><td>—</td></tr>
+          <tr><td>Feed Cost/lb DM</td><td>$0.133</td><td>—</td><td>—</td></tr>
+          <tr><td>Static IOFC/Hd</td><td>$6.34</td><td>—</td><td>—</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td class="bold">$6.35</td><td>—</td><td>—</td></tr>
+          <tr><td>Feed Cost/cwt</td><td>$10.45</td><td>—</td><td>—</td></tr>
+          <tr><td>IOFC/cwt</td><td>$7.07</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="section-heading">Financial Trend</div>
+  <div class="trend-wrap">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Monthly Financial Summary</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
+        <tbody>
+          <tr><td>Mailbox Milk $/cwt</td><td>$17.52</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td>$6.35</td></tr>
+          <tr><td>Feed Cost/Hd</td><td>$7.91</td></tr>
+          <tr><td>Feed Cost/cwt</td><td>$10.45</td></tr>
+          <tr><td>IOFC/cwt</td><td>$7.07</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TRENDS -->
+<section id="trends" class="section">
+  <div class="section-heading">12-Month Rolling Summary</div>
+  <div class="trend-wrap">
+    <div class="data-table-wrap">
+      <div class="data-table-title">Key Metrics — All Months</div>
+      <table>
+        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
+        <tbody>
+          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
+          <tr><td>Bulk Tank SCC</td><td>3 22,826</td></tr>
+          <tr><td>Preg Rate Annual</td><td>—</td></tr>
+          <tr><td>Preg Rate Heifers</td><td>22%</td></tr>
+          <tr><td>Abortion Rate (Current)</td><td>—</td></tr>
+          <tr><td>Cull Rate (Annual)</td><td>37.6%</td></tr>
+          <tr><td>Death Rate (Annual)</td><td>6.5%</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td>$6.35</td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td>$17.52</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  LONE OAK FARMS — #135 &nbsp;|&nbsp; EDGE DAIRY CONSULTING &nbsp;|&nbsp; FEBRUARY 2026 BENCHMARK REPORT
+</footer>
+
+<script>
+function showTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>

@@ -4,638 +4,818 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lone Oak Farms — February 2026 Benchmark Report</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0f1218;--surface:#171c26;--surface2:#1e2535;
-  --border:#2a3347;--border2:#3a4560;
-  --green:#2dd4a0;--green-dim:#1a7a5e;
-  --amber:#f59e0b;--amber-dim:#7a4e05;
-  --red:#f87171;--red-dim:#7a2020;
-  --blue:#60a5fa;--blue-dim:#1e3a6e;
-  --text:#e8ecf4;--text-dim:#8a95aa;--text-muted:#4a5568;--accent:#2dd4a0;
+:root {
+  --bg: #0f1218;
+  --bg2: #161b24;
+  --bg3: #1d2433;
+  --border: #2a3348;
+  --teal: #2dd4a0;
+  --teal-dim: rgba(45,212,160,0.12);
+  --teal-glow: rgba(45,212,160,0.25);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.12);
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --muted2: #94a3b8;
+  --font-display: 'Oswald', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'IBM Plex Sans', sans-serif;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
-.site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px}
-.header-farm{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;letter-spacing:.05em}
-.header-id{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);background:var(--surface2);padding:2px 8px;border-radius:3px;border:1px solid var(--border);margin-left:12px}
-.header-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);text-align:right}
-.header-badge{display:inline-block;background:var(--green-dim);color:var(--green);border:1px solid var(--green);border-radius:3px;font-size:10px;font-weight:600;letter-spacing:.1em;padding:2px 8px;margin-top:4px}
-.nav-tabs{background:var(--surface);border-bottom:1px solid var(--border);display:flex;padding:0 32px;overflow-x:auto;scrollbar-width:none}
-.nav-tabs::-webkit-scrollbar{display:none}
-.nav-tab{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:14px 20px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .2s,border-color .2s;user-select:none}
-.nav-tab:hover{color:var(--text-dim)}
-.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.main{padding:32px;max-width:1400px;margin:0 auto}
-.section{display:none}
-.section.active{display:block}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:32px}
-.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 18px;position:relative;overflow:hidden}
-.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
-.kpi-card.good::before{background:var(--green)}
-.kpi-card.warn::before{background:var(--amber)}
-.kpi-card.poor::before{background:var(--red)}
-.kpi-card.neutral::before{background:var(--blue)}
-.kpi-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.kpi-value{font-family:'Oswald',sans-serif;font-size:28px;font-weight:500;line-height:1;margin-bottom:6px}
-.kpi-card.good .kpi-value{color:var(--green)}
-.kpi-card.warn .kpi-value{color:var(--amber)}
-.kpi-card.poor .kpi-value{color:var(--red)}
-.kpi-card.neutral .kpi-value{color:var(--blue)}
-.kpi-sub{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:6px}
-.kpi-pct{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:1px 5px;border-radius:2px}
-.kpi-card.good .kpi-pct{background:var(--green-dim);color:var(--green)}
-.kpi-card.warn .kpi-pct{background:var(--amber-dim);color:var(--amber)}
-.kpi-card.poor .kpi-pct{background:var(--red-dim);color:var(--red)}
-.kpi-card.neutral .kpi-pct{background:var(--blue-dim);color:var(--blue)}
-.pct-bar-wrap{margin-top:10px}
-.pct-bar-track{height:3px;background:var(--border);border-radius:2px}
-.pct-bar-fill{height:100%;border-radius:2px;transition:width .8s cubic-bezier(.16,1,.3,1)}
-.kpi-card.good .pct-bar-fill{background:var(--green)}
-.kpi-card.warn .pct-bar-fill{background:var(--amber)}
-.kpi-card.poor .pct-bar-fill{background:var(--red)}
-.kpi-card.neutral .pct-bar-fill{background:var(--blue)}
-.section-heading{font-family:'Oswald',sans-serif;font-size:13px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.section-heading::after{content:'';flex:1;height:1px;background:var(--border)}
-.data-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:24px}
-.data-table-title{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface2)}
-table{width:100%;border-collapse:collapse}
-thead th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);padding:10px 16px;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
-thead th:first-child{text-align:left}
-tbody tr{border-bottom:1px solid var(--border)}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:rgba(255,255,255,.02)}
-td{padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:var(--text-dim)}
-td:first-child{text-align:left;color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:13px}
-td.good{color:var(--green)}
-td.warn{color:var(--amber)}
-td.poor{color:var(--red)}
-td.bold{font-weight:600;color:var(--text)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
-@media(max-width:900px){.two-col{grid-template-columns:1fr}.three-col{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.three-col{grid-template-columns:1fr}}
-.alert{border-radius:5px;padding:10px 16px;margin-bottom:12px;font-size:13px;display:flex;align-items:flex-start;gap:10px}
-.alert-icon{font-size:14px;line-height:1.5;flex-shrink:0}
-.alert.red{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
-.alert.amber{background:var(--amber-dim);border:1px solid var(--amber);color:var(--amber)}
-.alert.green{background:var(--green-dim);border:1px solid var(--green);color:var(--green)}
-.alert-text{color:var(--text);line-height:1.5}
-.alert-text strong{color:inherit}
-.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-bottom:32px}
-.summary-cell{background:var(--surface);padding:18px 20px;text-align:center}
-.summary-cell-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
-.summary-cell-val{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--text);line-height:1}
-.summary-cell-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
-@media(max-width:700px){.summary-row{grid-template-columns:1fr 1fr}}
-.badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:1px 6px;border-radius:2px;font-weight:500}
-.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
-.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber)}
-.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
-.badge-blue{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue)}
-.trend-wrap{overflow-x:auto;margin-bottom:24px}
-.trend-wrap table{min-width:900px}
-.site-footer{border-top:1px solid var(--border);padding:20px 32px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);margin-top:40px}
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.section.active>*{animation:fadeIn .3s ease both}
-.section.active>*:nth-child(2){animation-delay:.04s}
-.section.active>*:nth-child(3){animation-delay:.08s}
-.section.active>*:nth-child(4){animation-delay:.12s}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+
+/* HEADER */
+.header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  position: sticky; top: 0; z-index: 100;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1400px; margin: 0 auto; height: 64px;
+}
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal-glow);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.brand-name { font-family: var(--font-display); font-weight: 600; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; }
+.brand-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+.header-meta { text-align: right; }
+.header-date { font-family: var(--font-mono); font-size: 12px; color: var(--teal); letter-spacing: 1px; }
+.header-id { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+/* ALERT BANNER */
+.alert-banner {
+  background: rgba(239,68,68,0.08);
+  border-bottom: 1px solid rgba(239,68,68,0.3);
+  padding: 10px 32px;
+}
+.alert-banner-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.alert-tag {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  background: var(--red); color: #fff; padding: 2px 8px; border-radius: 2px;
+  flex-shrink: 0;
+}
+.alert-item {
+  font-size: 12px; color: #fca5a5; display: flex; align-items: center; gap: 6px;
+}
+.alert-item::after { content: "·"; color: var(--muted); margin-left: 6px; }
+.alert-item:last-child::after { display: none; }
+
+/* NAV TABS */
+.nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; }
+.nav-inner { max-width: 1400px; margin: 0 auto; display: flex; gap: 0; }
+.tab {
+  font-family: var(--font-display); font-size: 13px; letter-spacing: 1.5px;
+  text-transform: uppercase; font-weight: 500;
+  padding: 14px 20px; cursor: pointer; border: none; background: none;
+  color: var(--muted); border-bottom: 2px solid transparent;
+  transition: all 0.2s; white-space: nowrap;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* MAIN */
+.main { max-width: 1400px; margin: 0 auto; padding: 32px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* KPI GRID */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.kpi-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+  padding: 20px; position: relative; overflow: hidden; transition: border-color 0.2s;
+}
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--teal);
+}
+.kpi-card.amber::before { background: var(--amber); }
+.kpi-card.red::before { background: var(--red); }
+.kpi-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.kpi-value { font-family: var(--font-display); font-size: 32px; font-weight: 700; line-height: 1; }
+.kpi-value.teal { color: var(--teal); }
+.kpi-value.amber { color: var(--amber); }
+.kpi-value.red { color: var(--red); }
+.kpi-sub { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 6px; }
+.kpi-trend {
+  position: absolute; top: 16px; right: 16px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+}
+.kpi-trend.up-good { color: var(--teal); }
+.kpi-trend.up-bad { color: var(--red); }
+.kpi-trend.down-good { color: var(--teal); }
+.kpi-trend.down-bad { color: var(--red); }
+.kpi-trend.neutral { color: var(--muted); }
+
+/* PERCENTILE BAR */
+.pct-bar-wrap { margin-top: 10px; }
+.pct-bar-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.pct-bar-label span { font-family: var(--font-mono); font-size: 10px; color: var(--muted); }
+.pct-bar-label .pct-num { color: var(--text); font-weight: 500; }
+.pct-bar-track {
+  height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; position: relative;
+}
+.pct-bar-fill {
+  height: 100%; border-radius: 2px; transition: width 0.8s ease;
+}
+.pct-bar-fill.green { background: var(--teal); }
+.pct-bar-fill.amber { background: var(--amber); }
+.pct-bar-fill.red { background: var(--red); }
+.pct-midline {
+  position: absolute; top: 0; left: 50%; width: 1px; height: 100%;
+  background: rgba(255,255,255,0.15);
+}
+
+/* SECTION HEADERS */
+.section-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.section-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+.section-desc { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+/* TWO-COL LAYOUT */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+@media(max-width:900px) { .two-col,.three-col { grid-template-columns: 1fr; } }
+
+/* DATA TABLE */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--muted); font-weight: 500;
+  padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border);
+  background: var(--bg3);
+}
+.data-table td {
+  padding: 10px 16px; border-bottom: 1px solid rgba(42,51,72,0.5);
+  font-family: var(--font-mono); font-size: 12px;
+}
+.data-table tr:hover td { background: rgba(45,212,160,0.04); }
+.data-table td.val { text-align: right; }
+.data-table td.good { color: var(--teal); }
+.data-table td.warn { color: var(--amber); }
+.data-table td.bad { color: var(--red); }
+
+/* CARD */
+.card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+  padding: 24px;
+}
+.card-title { font-family: var(--font-display); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted2); margin-bottom: 20px; }
+
+/* TREND CHART */
+.trend-chart { position: relative; height: 120px; margin-top: 8px; }
+.trend-svg { width: 100%; height: 100%; }
+
+/* BENCHMARK ROW */
+.bench-row { display: flex; flex-direction: column; gap: 14px; }
+.bench-item { }
+.bench-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+.bench-metric { font-family: var(--font-body); font-size: 13px; color: var(--muted2); }
+.bench-value { font-family: var(--font-mono); font-size: 14px; font-weight: 500; }
+.bench-pct-row { display: flex; align-items: center; gap: 10px; }
+.bench-pct-track { flex: 1; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; position: relative; }
+.bench-pct-fill { height: 100%; border-radius: 3px; }
+.bench-pct-num { font-family: var(--font-mono); font-size: 11px; width: 50px; text-align: right; }
+.bench-avg { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+/* GAUGE */
+.gauge-wrap { display: flex; flex-direction: column; align-items: center; padding: 8px 0; }
+.gauge-svg { overflow: visible; }
+.gauge-label { font-family: var(--font-mono); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; text-align: center; }
+
+/* INSIGHT BOX */
+.insight-box {
+  border-radius: 4px; padding: 14px 16px; margin-top: 16px;
+  font-family: var(--font-body); font-size: 13px; line-height: 1.6;
+}
+.insight-box.red { background: var(--red-dim); border-left: 3px solid var(--red); color: #fca5a5; }
+.insight-box.amber { background: var(--amber-dim); border-left: 3px solid var(--amber); color: #fcd34d; }
+.insight-box.teal { background: var(--teal-dim); border-left: 3px solid var(--teal); color: #6ee7b7; }
+.insight-icon { display: inline-block; margin-right: 6px; font-style: normal; }
+
+/* MONTH SPARKLINE */
+.spark-table { width: 100%; }
+.spark-table td { padding: 4px 6px; font-family: var(--font-mono); font-size: 11px; }
+.spark-bar-cell { width: 120px; }
+.spark-bar { height: 12px; border-radius: 1px; display: inline-block; min-width: 2px; }
+
+/* FOOTER */
+.footer {
+  text-align: center; padding: 32px;
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  border-top: 1px solid var(--border); margin-top: 48px;
+}
+
+/* ANIMATE IN */
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
+.panel.active .kpi-card { animation: fadeUp 0.4s ease both; }
+.panel.active .kpi-card:nth-child(1){animation-delay:.05s}
+.panel.active .kpi-card:nth-child(2){animation-delay:.10s}
+.panel.active .kpi-card:nth-child(3){animation-delay:.15s}
+.panel.active .kpi-card:nth-child(4){animation-delay:.20s}
+.panel.active .kpi-card:nth-child(5){animation-delay:.25s}
+.panel.active .kpi-card:nth-child(6){animation-delay:.30s}
+.panel.active .kpi-card:nth-child(7){animation-delay:.35s}
+.panel.active .kpi-card:nth-child(8){animation-delay:.40s}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div style="display:flex;align-items:baseline">
-    <div class="header-farm">LONE OAK FARMS</div>
-    <div class="header-id">#135</div>
-  </div>
-  <div class="header-meta">
-    <div>EDGE DAIRY CONSULTING — BENCHMARK REPORT</div>
-    <div class="header-badge">FEBRUARY 2026</div>
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">Lone Oak Farms</div>
+        <div class="brand-sub">EDGE DAIRY CONSULTING · BENCHMARK REPORT</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="header-date">FEBRUARY 2026</div>
+      <div class="header-id">DAIRY #135</div>
+    </div>
   </div>
 </header>
 
-<nav class="nav-tabs">
-  <div class="nav-tab active" onclick="showTab('overview',this)">Overview</div>
-  <div class="nav-tab" onclick="showTab('herd',this)">Herd Data</div>
-  <div class="nav-tab" onclick="showTab('production',this)">Production</div>
-  <div class="nav-tab" onclick="showTab('reproduction',this)">Reproduction</div>
-  <div class="nav-tab" onclick="showTab('heifers',this)">Heifers</div>
-  <div class="nav-tab" onclick="showTab('culling',this)">Culling</div>
-  <div class="nav-tab" onclick="showTab('udder',this)">Udder Health</div>
-  <div class="nav-tab" onclick="showTab('financial',this)">Financial</div>
-  <div class="nav-tab" onclick="showTab('trends',this)">12-Month Trends</div>
+<!-- ALERT BANNER -->
+<div class="alert-banner">
+  <div class="alert-banner-inner">
+    <span class="alert-tag">⚠ Attention Required</span>
+    <span class="alert-item">SCC 322,826 — rising trend, 4th month above 250K</span>
+    <span class="alert-item">Clinical Mastitis New 13.2% — nearly 3× industry avg</span>
+    <span class="alert-item">Milk production at 31st percentile vs EDGE database</span>
+    <span class="alert-item">Heifer completion rate 84% — declining</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="tab active" onclick="showPanel('overview',this)">Overview</button>
+    <button class="tab" onclick="showPanel('herd',this)">Herd Data</button>
+    <button class="tab" onclick="showPanel('production',this)">Production</button>
+    <button class="tab" onclick="showPanel('reproduction',this)">Reproduction</button>
+    <button class="tab" onclick="showPanel('heifers',this)">Heifers</button>
+    <button class="tab" onclick="showPanel('culling',this)">Culling</button>
+    <button class="tab" onclick="showPanel('udder',this)">Udder Health</button>
+    <button class="tab" onclick="showPanel('financial',this)">Financial</button>
+    <button class="tab" onclick="showPanel('trends',this)">12-Month Trends</button>
+  </div>
 </nav>
 
 <main class="main">
 
-<!-- OVERVIEW -->
-<section id="overview" class="section active">
-  <div class="summary-row">
-    <div class="summary-cell">
-      <div class="summary-cell-label">Total Herd</div>
-      <div class="summary-cell-val">—</div>
-      <div class="summary-cell-sub">Milking Cows + Heifers</div>
-    </div>
-    <div class="summary-cell">
-      <div class="summary-cell-label">Milking Cows</div>
-      <div class="summary-cell-val">—</div>
-      <div class="summary-cell-sub">— of herd</div>
-    </div>
-    <div class="summary-cell">
-      <div class="summary-cell-label">Bulk Tank Milk</div>
-      <div class="summary-cell-val">—</div>
-      <div class="summary-cell-sub">lbs/cow/day</div>
-    </div>
-    <div class="summary-cell">
-      <div class="summary-cell-label">Actual IOFC/Hd</div>
-      <div class="summary-cell-val">$6.35</div>
-      <div class="summary-cell-sub">per cow per day</div>
-    </div>
-  </div>
-
-  <div class="section-heading">Performance vs. EDGE Database</div>
+<!-- ═══════════ OVERVIEW ═══════════ -->
+<div id="overview" class="panel active">
   <div class="kpi-grid">
-    
-    <div class="kpi-card neutral">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Herd</div>
+      <div class="kpi-value teal">7,807</div>
+      <div class="kpi-sub">Cows on inventory</div>
+      <div class="kpi-trend neutral">─ steady</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Milking Cows</div>
+      <div class="kpi-value teal">7,084</div>
+      <div class="kpi-sub">91% of herd · Avg 160 DIM</div>
+      <div class="kpi-trend up-good">▲ +40</div>
+    </div>
+    <div class="kpi-card">
       <div class="kpi-label">Bulk Tank Milk</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
+      <div class="kpi-value amber">81.4</div>
+      <div class="kpi-sub">lbs/cow/day · 31st pctile</div>
+      <div class="kpi-trend down-bad">▼ −0.6</div>
     </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">Bulk Tank ECM</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
+    <div class="kpi-card red">
+      <div class="kpi-label">Bulk Tank SCC</div>
+      <div class="kpi-value red">322,826</div>
+      <div class="kpi-sub">cells/mL · 4-month high</div>
+      <div class="kpi-trend up-bad">▲ +6,864</div>
     </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">Bulk Tank Fat %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
+    <div class="kpi-card">
+      <div class="kpi-label">Pregnancy Rate</div>
+      <div class="kpi-value teal">28%</div>
+      <div class="kpi-sub">Annual rolling avg</div>
+      <div class="kpi-trend neutral">─ stable</div>
     </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">Bulk Tank Prot %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
+    <div class="kpi-card">
+      <div class="kpi-label">Conception Rate</div>
+      <div class="kpi-value teal">44%</div>
+      <div class="kpi-sub">Annual · 1st Svc 48%</div>
+      <div class="kpi-trend up-good">▲ +1%</div>
     </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">SNF %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
+    <div class="kpi-card amber">
+      <div class="kpi-label">Mastitis New</div>
+      <div class="kpi-value amber">13.2%</div>
+      <div class="kpi-sub">vs 4.5% EDGE avg</div>
+      <div class="kpi-trend up-bad">▲ +4.5%</div>
     </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">ECM Feed Efficiency</div>
-      <div class="kpi-value">1.59</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
-    </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">Static IOFC/Hd</div>
-      <div class="kpi-value">$6.34</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
-    </div>
-    
-    <div class="kpi-card neutral">
-      <div class="kpi-label">Feed Cost/cwt</div>
-      <div class="kpi-value">$10.45</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
-      <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
-      </div></div>
-    </div>
-  </div>
-</section>
-
-<!-- HERD DATA -->
-<section id="herd" class="section">
-  <div class="section-heading">Herd Inventory — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Cow Inventory</div>
-      <table>
-        <thead><tr><th>Category</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Total Herd</td><td class="bold">—</td></tr>
-          <tr><td>Milking</td><td class="good">—</td></tr>
-          <tr><td>% Milking</td><td>—</td></tr>
-          <tr><td>Dry</td><td>—</td></tr>
-          <tr><td>% Dry</td><td>—</td></tr>
-          <tr><td>Lactation 1</td><td>—</td></tr>
-          <tr><td>Lactation >1</td><td>—</td></tr>
-          <tr><td>% Lactation 1</td><td>—</td></tr>
-          <tr><td>Average Lactation</td><td class="bold">—</td></tr>
-          <tr><td>Avg DIM Milking</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Heifer Inventory</div>
-      <table>
-        <thead><tr><th>Category</th><th>Value</th></tr></thead>
-        <tbody>
-          <tr><td>Total Heifers 0–24 mo</td><td class="bold">—</td></tr>
-          <tr><td>Heifers 0–12 mo</td><td>—</td></tr>
-          <tr><td>Heifers 13–24 mo</td><td>—</td></tr>
-          <tr><td>Heifers % of Total Herd</td><td>—</td></tr>
-          <tr><td>Cow : Heifer Ratio</td><td class="bold">—</td></tr>
-        </tbody>
-      </table>
+    <div class="kpi-card">
+      <div class="kpi-label">Actual IOFC/Hd</div>
+      <div class="kpi-value teal">$6.35</div>
+      <div class="kpi-sub">38th pctile · $6.64 avg</div>
+      <div class="kpi-trend up-good">▲ +$1.10</div>
     </div>
   </div>
 
-  <div class="section-heading">12-Month Trend</div>
-  <div class="trend-wrap">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Herd Data — Monthly</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
-        <tbody>
-          <tr><td>Total Herd</td><td>—</td></tr>
-          <tr><td>Milking</td><td>—</td></tr>
-          <tr><td>% Milking</td><td>—</td></tr>
-          <tr><td>% Dry</td><td>—</td></tr>
-          <tr><td>Avg DIM Milking</td><td>—</td></tr>
-          <tr><td>% Lact=1</td><td>—</td></tr>
-        </tbody>
-      </table>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Benchmark Scorecard — February 2026</div>
+      <div class="bench-row">
+        <!-- Production metrics: higher = better -->
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">Bulk Tank Milk</span>
+            <span class="bench-value" style="color:var(--amber)">81.4 lbs</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:31%;background:var(--amber)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--amber)">31st</span>
+          </div>
+          <div class="bench-avg">EDGE avg 84.4 · High 102.4 · Low 54.1</div>
+        </div>
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">Bulk Tank ECM</span>
+            <span class="bench-value" style="color:var(--amber)">94.9</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:32%;background:var(--amber)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--amber)">32nd</span>
+          </div>
+          <div class="bench-avg">EDGE avg 97.8 · High 115.9</div>
+        </div>
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">Bulk Tank Fat %</span>
+            <span class="bench-value" style="color:var(--teal)">4.49%</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:62%;background:var(--teal)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--teal)">62nd</span>
+          </div>
+          <div class="bench-avg">EDGE avg 4.45% · High 5.32%</div>
+        </div>
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">Bulk Tank Protein %</span>
+            <span class="bench-value" style="color:var(--amber)">3.37%</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:41%;background:var(--amber)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--amber)">41st</span>
+          </div>
+          <div class="bench-avg">EDGE avg 3.42% · High 4.09%</div>
+        </div>
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">ECM Feed Efficiency</span>
+            <span class="bench-value" style="color:var(--amber)">1.59</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:36%;background:var(--amber)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--amber)">36th</span>
+          </div>
+          <div class="bench-avg">EDGE avg 1.62 · High 1.84</div>
+        </div>
+        <div class="bench-item">
+          <div class="bench-item-header">
+            <span class="bench-metric">Actual IOFC/Hd</span>
+            <span class="bench-value" style="color:var(--amber)">$6.35</span>
+          </div>
+          <div class="bench-pct-row">
+            <div class="bench-pct-track">
+              <div class="bench-pct-fill" style="width:38%;background:var(--amber)"></div>
+              <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(255,255,255,0.15)"></div>
+            </div>
+            <span class="bench-pct-num" style="color:var(--amber)">38th</span>
+          </div>
+          <div class="bench-avg">EDGE avg $6.64 · High $9.40</div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- PRODUCTION -->
-<section id="production" class="section">
-  <div class="section-heading">Milk Production — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Bulk Tank Results</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>EDGE Avg</th><th>12M Avg</th></tr></thead>
-        <tbody>
-          <tr><td>Bulk Tank Milk (lbs)</td><td class="bold">—</td><td>—</td><td>—</td></tr>
-          <tr><td>Bulk Tank ECM</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Bulk Tank MCM</td><td>—</td><td></td><td>—</td></tr>
-          <tr><td>150 Day ACM</td><td>—</td><td></td><td>—</td></tr>
-          <tr><td>Fat %</td><td class="good">—</td><td>—</td><td>—</td></tr>
-          <tr><td>Protein %</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>SNF %</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Early Lactation Milk by Group</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>W4MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W4MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W4MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
+    <div class="card">
+      <div class="card-title">Key Recommendations</div>
+      <div class="insight-box red" style="margin-top:0">
+        <i class="insight-icon">🔴</i><strong>SCC / Mastitis Crisis</strong> — SCC at 322,826 and rising for 4 months. Clinical mastitis new cases at 13.2% (EDGE avg: 4.5%). Immediate milking hygiene audit, teat condition scoring, and dry cow therapy review required. Early lactation mastitis in Lact&gt;1 cows (7.8%) is especially elevated.
+      </div>
+      <div class="insight-box amber">
+        <i class="insight-icon">🟡</i><strong>Milk Production Below Target</strong> — Bulk tank at 31st percentile. 150-Day ACM at 96.8 vs 103.3 high. Herd DIM at 160 days is normal. Review early-lactation fresh cow program — W4MK Lact=1 of 72.7 lbs is below 3x-dairy average of 76.2 lbs.
+      </div>
+      <div class="insight-box amber">
+        <i class="insight-icon">🟡</i><strong>Feed Cost Above Peers</strong> — Feed Cost/Hd at $7.91 ranks at 77th percentile (paying more than 77% of farms). Combined with below-median production, IOFC sits at 38th percentile. Investigate ration cost efficiency.
+      </div>
+      <div class="insight-box teal">
+        <i class="insight-icon">🟢</i><strong>Reproduction Solid</strong> — Conception rate 44% (above average), heat rate 66%, 1st service conception 48%. Abortion rate improved from 15.6% in January to 6.0% this month — excellent recovery.
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="section-heading">Production Trend</div>
-  <div class="trend-wrap">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Bulk Tank — Monthly</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
-        <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank ECM</td><td>—</td></tr>
-          <tr><td>Bulk Tank Fat %</td><td>—</td></tr>
-          <tr><td>Bulk Tank Prot %</td><td>—</td></tr>
-          <tr><td>Bulk Tank SNF %</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
+<!-- ═══════════ HERD DATA ═══════════ -->
+<div id="herd" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Total Herd</div><div class="kpi-value teal">7,807</div><div class="kpi-sub">12-mo avg: 7,901</div></div>
+    <div class="kpi-card"><div class="kpi-label">Milking</div><div class="kpi-value teal">7,084</div><div class="kpi-sub">91% of herd</div></div>
+    <div class="kpi-card"><div class="kpi-label">Dry Cows</div><div class="kpi-value">723</div><div class="kpi-sub">9% of herd</div></div>
+    <div class="kpi-card"><div class="kpi-label">Lact = 1</div><div class="kpi-value">2,584</div><div class="kpi-sub">33% of milking</div></div>
+    <div class="kpi-card"><div class="kpi-label">Lact &gt; 1</div><div class="kpi-value">5,223</div><div class="kpi-sub">67% of milking</div></div>
+    <div class="kpi-card"><div class="kpi-label">Avg Lactation</div><div class="kpi-value teal">2.4</div><div class="kpi-sub">Avg DIM: 160</div></div>
+    <div class="kpi-card"><div class="kpi-label">Heifers 0-24 mo</div><div class="kpi-value">6,713</div><div class="kpi-sub">86% of total herd</div></div>
+    <div class="kpi-card"><div class="kpi-label">Cow:Heifer Ratio</div><div class="kpi-value teal">1.2</div><div class="kpi-sub">12-mo avg: 1.3</div></div>
   </div>
-</section>
-
-<!-- REPRODUCTION -->
-<section id="reproduction" class="section">
-  <div class="section-heading">Reproductive Performance — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Annual Rolling Rates — All Cows</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Pregnancy Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Heat Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Conception Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Days Open</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Herd Pregnant</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% DNB</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Pregnancy at DIM Thresholds</div>
-      <table>
-        <thead><tr><th>Milestone</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>% Preg at 100 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 150 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 200 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Lact=1 Reproductive Rates</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Lact>1 Reproductive Rates</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- HEIFERS -->
-<section id="heifers" class="section">
-  <div class="section-heading">Heifer Performance — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Heifer Reproduction</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Age at Fresh (mo)</td><td>23.4</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>VWP Heifers</td><td>417</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Pregnancy Rate</td><td>22%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>42%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>55%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>60%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 450 Days</td><td>61%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 500 Days</td><td>86%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 550 Days</td><td>90%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heifer Completion Rate</td><td>84.0%</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Heifer Cull Rates</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Annualized Cull — All</td><td>10.8%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate 0–12 mo</td><td>5.3%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate 13–24 mo</td><td>18.8%</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- CULLING -->
-<section id="culling" class="section">
-  <div class="section-heading">Culling & Mortality — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Early Removal (&lt;60 DIM)</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>% S&amp;D &lt;60 DIM (All)</td><td>7.5%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Sold &lt;60 DIM</td><td>5.8%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Died &lt;60 DIM</td><td>1.6%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% S&amp;D Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% S&amp;D Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Annual Cull Rates</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Cull Rate (Annual)</td><td>37.6%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate Lact=1</td><td>25.9%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate Lact>1</td><td>43.4%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Death Rate (Annual)</td><td>6.5%</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Dry Period — Lact=1</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
-        <tbody>
-          <tr><td>DINCU (days)</td><td>20</td><td>—</td></tr>
-          <tr><td>% &lt;14 Days</td><td>13%</td><td>—</td></tr>
-          <tr><td>% &gt;28 Days</td><td>12%</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Dry Period — Lact>1</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
-        <tbody>
-          <tr><td>DINCU (days)</td><td>22</td><td>—</td></tr>
-          <tr><td>% &lt;14 Days</td><td>4%</td><td>—</td></tr>
-          <tr><td>% &gt;28 Days</td><td>7%</td><td>—</td></tr>
-          <tr><td>DDRY (days)</td><td>58</td><td>—</td></tr>
-          <tr><td>% DDRY &gt;75 Days</td><td>2%</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- UDDER HEALTH -->
-<section id="udder" class="section">
-  <div class="section-heading">Udder Health — February 2026</div>
-  <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">SCC &amp; Clinical Mastitis</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-        <tbody>
-          <tr><td>Bulk Tank SCC</td><td class="bold">3 22,826</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Clinical Mastitis New</td><td>13.2%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Clinical Mastitis Repeat</td><td>9.8%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Mast &lt;30 DIM Lact=1</td><td>3.3%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Mast &lt;30 DIM Lact>1</td><td>7.8%</td><td>—</td><td>—</td><td>—</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">SCC Trend</div>
-      <table>
-        <thead><tr><th>Month</th><th>Bulk Tank SCC</th></tr></thead>
-        <tbody>
-          <tr><td>Feb-26</td><td>3 22,826</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="data-table-wrap">
-    <div class="data-table-title">Calving Outcomes</div>
-    <table>
-      <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+  <div class="card">
+    <div class="card-title">Herd Composition — Monthly Trend</div>
+    <table class="data-table">
+      <thead><tr><th>Metric</th><th>Feb-25</th><th>Jun-25</th><th>Sep-25</th><th>Nov-25</th><th>Jan-26</th><th>Feb-26 ▼</th></tr></thead>
       <tbody>
-        <tr><td>% Heifer Calves</td><td>65.0%</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA (All)</td><td>1.0%</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Total Herd</td><td class="val">8,182</td><td class="val">7,961</td><td class="val">7,756</td><td class="val">7,791</td><td class="val">7,835</td><td class="val good">7,807</td></tr>
+        <tr><td>Milking</td><td class="val">7,381</td><td class="val">7,087</td><td class="val">6,518</td><td class="val">6,724</td><td class="val">7,064</td><td class="val good">7,084</td></tr>
+        <tr><td>% Milking</td><td class="val">90%</td><td class="val">89%</td><td class="val">84%</td><td class="val">86%</td><td class="val">90%</td><td class="val good">91%</td></tr>
+        <tr><td>Dry Cows</td><td class="val">801</td><td class="val">874</td><td class="val">1,238</td><td class="val">1,067</td><td class="val">771</td><td class="val">723</td></tr>
+        <tr><td>% Dry</td><td class="val">10%</td><td class="val">11%</td><td class="val warn">16%</td><td class="val">14%</td><td class="val">10%</td><td class="val good">9%</td></tr>
+        <tr><td>Avg DIM Milking</td><td class="val">171</td><td class="val">201</td><td class="val warn">181</td><td class="val">157</td><td class="val">146</td><td class="val">160</td></tr>
+        <tr><td>Heifers 0-24 mo</td><td class="val">5,761</td><td class="val">5,902</td><td class="val">6,012</td><td class="val">6,459</td><td class="val">6,658</td><td class="val">6,713</td></tr>
+        <tr><td>% Lact=1</td><td class="val">34%</td><td class="val">33%</td><td class="val">33%</td><td class="val">32%</td><td class="val">32%</td><td class="val">33%</td></tr>
       </tbody>
     </table>
   </div>
-</section>
+</div>
 
-<!-- FINANCIAL -->
-<section id="financial" class="section">
-  <div class="section-heading">Financial Performance — February 2026</div>
+<!-- ═══════════ PRODUCTION ═══════════ -->
+<div id="production" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card amber"><div class="kpi-label">Bulk Tank Milk</div><div class="kpi-value amber">81.4</div><div class="kpi-sub">lbs/cow/day</div><div class="kpi-trend down-bad">▼ −0.6 vs Jan</div></div>
+    <div class="kpi-card"><div class="kpi-label">Bulk Tank ECM</div><div class="kpi-value">94.9</div><div class="kpi-sub">32nd percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">150-Day ACM</div><div class="kpi-value">96.8</div><div class="kpi-sub">12-mo avg: 98.5</div></div>
+    <div class="kpi-card"><div class="kpi-label">Bulk Tank Fat</div><div class="kpi-value teal">4.49%</div><div class="kpi-sub">62nd percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">Bulk Tank Protein</div><div class="kpi-value">3.37%</div><div class="kpi-sub">41st percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">Bulk Tank SNF</div><div class="kpi-value">9.08%</div><div class="kpi-sub">24th percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">W4MK Lact=1</div><div class="kpi-value">72.7</div><div class="kpi-sub">lbs · 12-mo avg 70.2</div></div>
+    <div class="kpi-card"><div class="kpi-label">W4MK Lact&gt;2</div><div class="kpi-value">104.6</div><div class="kpi-sub">lbs · 12-mo avg 100.5</div></div>
+  </div>
+
   <div class="two-col">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Milk Pricing</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
+    <div class="card">
+      <div class="card-title">Peak Milk by Lactation Group — Feb 2026</div>
+      <table class="data-table">
+        <thead><tr><th>Week</th><th>Lact=1</th><th>Lact=2</th><th>Lact&gt;2</th></tr></thead>
         <tbody>
-          <tr><td>Mailbox Milk $/cwt</td><td class="bold">$17.52</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Class III $/cwt</td><td>$14.52</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Class IV $/cwt</td><td>$16.29</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Statistical Uniform $/cwt</td><td>$15.02</td><td></td><td></td><td></td></tr>
-          <tr><td>PPD $/cwt</td><td>$0.50</td><td></td><td></td><td></td></tr>
-          <tr><td>Class III Fat $/lb</td><td>$1.779</td><td></td><td></td><td></td></tr>
-          <tr><td>Class III Protein $/lb</td><td>$1.937</td><td></td><td></td><td></td></tr>
+          <tr><td>W4MK</td><td class="val">72.7</td><td class="val">99.8</td><td class="val">104.6</td></tr>
+          <tr><td>W8MK</td><td class="val">80.9</td><td class="val">102.1</td><td class="val">108.8</td></tr>
+          <tr><td>W12MK</td><td class="val">83.1</td><td class="val">98.0</td><td class="val">106.6</td></tr>
+          <tr><td>W4MK &lt;50 lbs %</td><td class="val warn">6%</td><td class="val good">—</td><td class="val good">—</td></tr>
+          <tr><td>W4MK &gt;80 lbs %</td><td class="val">31%</td><td class="val good">—</td><td class="val good">—</td></tr>
+          <tr><td>W4MK &gt;100 lbs %</td><td class="val good">—</td><td class="val good">51%</td><td class="val good">62%</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="data-table-wrap">
-      <div class="data-table-title">Feed Costs &amp; IOFC</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Current</th><th>%ile</th><th>EDGE Avg</th></tr></thead>
+    <div class="card">
+      <div class="card-title">Bulk Tank Monthly Trend</div>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Milk</th><th>Fat%</th><th>Prot%</th><th>ECM</th></tr></thead>
         <tbody>
-          <tr><td>DMI Milk Cows</td><td>59.5</td><td>—</td><td>—</td></tr>
-          <tr><td>ECM Feed Efficiency</td><td>1.59</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/Hd/Day</td><td>$7.91</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/lb DM</td><td>$0.133</td><td>—</td><td>—</td></tr>
-          <tr><td>Static IOFC/Hd</td><td>$6.34</td><td>—</td><td>—</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td class="bold">$6.35</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/cwt</td><td>$10.45</td><td>—</td><td>—</td></tr>
-          <tr><td>IOFC/cwt</td><td>$7.07</td><td>—</td><td>—</td></tr>
+          <tr><td>Feb-25</td><td class="val">77.2</td><td class="val">4.44%</td><td class="val">3.39%</td><td class="val">89.6</td></tr>
+          <tr><td>Jun-25</td><td class="val">79.7</td><td class="val">4.31%</td><td class="val">3.35%</td><td class="val">91.1</td></tr>
+          <tr><td>Sep-25</td><td class="val">81.2</td><td class="val">4.33%</td><td class="val">3.31%</td><td class="val">92.6</td></tr>
+          <tr><td>Nov-25</td><td class="val">82.7</td><td class="val">4.32%</td><td class="val">3.28%</td><td class="val">94.1</td></tr>
+          <tr><td>Jan-26</td><td class="val">84.2</td><td class="val good">4.51%</td><td class="val">3.33%</td><td class="val good">97.5</td></tr>
+          <tr><td><strong>Feb-26</strong></td><td class="val warn">81.4</td><td class="val teal">4.49%</td><td class="val">3.37%</td><td class="val warn">94.9</td></tr>
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="section-heading">Financial Trend</div>
-  <div class="trend-wrap">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Monthly Financial Summary</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
-        <tbody>
-          <tr><td>Mailbox Milk $/cwt</td><td>$17.52</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$6.35</td></tr>
-          <tr><td>Feed Cost/Hd</td><td>$7.91</td></tr>
-          <tr><td>Feed Cost/cwt</td><td>$10.45</td></tr>
-          <tr><td>IOFC/cwt</td><td>$7.07</td></tr>
-        </tbody>
-      </table>
+      <div class="insight-box amber" style="margin-top:16px">
+        January had the highest milk production of the past year (84.2 lbs). February dropped 2.8 lbs, consistent with typical post-peak seasonal pattern. The SCC spike likely contributing to lost production.
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- TRENDS -->
-<section id="trends" class="section">
-  <div class="section-heading">12-Month Rolling Summary</div>
-  <div class="trend-wrap">
-    <div class="data-table-wrap">
-      <div class="data-table-title">Key Metrics — All Months</div>
-      <table>
-        <thead><tr><th>Metric</th><th>Feb-26</th></tr></thead>
+<!-- ═══════════ REPRODUCTION ═══════════ -->
+<div id="reproduction" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Preg Rate (Annual)</div><div class="kpi-value teal">28%</div><div class="kpi-sub">50-VWP: 23%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Heat Rate</div><div class="kpi-value teal">66%</div><div class="kpi-sub">Annual rolling avg</div></div>
+    <div class="kpi-card"><div class="kpi-label">Conception Rate</div><div class="kpi-value teal">44%</div><div class="kpi-sub">1st Service: 48%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Days Open</div><div class="kpi-value">111</div><div class="kpi-sub">12-mo avg: 112</div></div>
+    <div class="kpi-card"><div class="kpi-label">% Herd Pregnant</div><div class="kpi-value">48%</div><div class="kpi-sub">12-mo avg: 53%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% Preg at 100 DIM</div><div class="kpi-value">57%</div><div class="kpi-sub">12-mo avg: 57%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Abortion Rate</div><div class="kpi-value teal">6.0%</div><div class="kpi-sub">Annual: 11.1%</div><div class="kpi-trend down-good">▼ from 15.6%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% DNB</div><div class="kpi-value amber">3%</div><div class="kpi-sub">Do Not Breed</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Reproduction by Parity</div>
+      <table class="data-table">
+        <thead><tr><th>Metric</th><th>Lact=1</th><th>Lact&gt;1</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank SCC</td><td>3 22,826</td></tr>
-          <tr><td>Preg Rate Annual</td><td>—</td></tr>
-          <tr><td>Preg Rate Heifers</td><td>22%</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td></tr>
-          <tr><td>Cull Rate (Annual)</td><td>37.6%</td></tr>
-          <tr><td>Death Rate (Annual)</td><td>6.5%</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$6.35</td></tr>
-          <tr><td>Mailbox Milk $/cwt</td><td>$17.52</td></tr>
+          <tr><td>VWP (days)</td><td class="val">71</td><td class="val">70</td></tr>
+          <tr><td>Preg Rate 50-VWP</td><td class="val good">26%</td><td class="val warn">22%</td></tr>
+          <tr><td>Preg Rate Annual</td><td class="val good">29%</td><td class="val">29%</td></tr>
+          <tr><td>Heat Rate</td><td class="val">64%</td><td class="val">66%</td></tr>
+          <tr><td>Conception Rate</td><td class="val good">49%</td><td class="val warn">39%</td></tr>
+          <tr><td>1st Svc Conc Rate</td><td class="val good">53%</td><td class="val warn">42%</td></tr>
+        </tbody>
+      </table>
+      <div class="insight-box amber" style="margin-top:16px">
+        Lact&gt;1 conception rate of 39% is below historical highs (49% in Apr-25). Older cow conception has been declining since the summer. Evaluate transition cow health and body condition.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Pregnancy Timing — % Pregnant at DIM</div>
+      <table class="data-table">
+        <thead><tr><th>DIM Checkpoint</th><th>Feb-26</th><th>12-mo Avg</th><th>12-mo High</th></tr></thead>
+        <tbody>
+          <tr><td>100 DIM</td><td class="val">57%</td><td class="val">57%</td><td class="val good">65%</td></tr>
+          <tr><td>150 DIM</td><td class="val">76%</td><td class="val">77%</td><td class="val good">85%</td></tr>
+          <tr><td>200 DIM</td><td class="val">87%</td><td class="val">87%</td><td class="val good">93%</td></tr>
+        </tbody>
+      </table>
+      <div class="insight-box teal" style="margin-top:16px">
+        Current abortion rate 6.0% is the lowest in 12 months — a major improvement from the 19.6% peak in September and 15.6% in January. Continue monitoring to confirm this trend holds.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ HEIFERS ═══════════ -->
+<div id="heifers" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Age at Fresh</div><div class="kpi-value teal">23.4</div><div class="kpi-sub">months · avg 23.5</div></div>
+    <div class="kpi-card"><div class="kpi-label">VWP Heifers</div><div class="kpi-value">417</div><div class="kpi-sub">days · avg 400</div></div>
+    <div class="kpi-card"><div class="kpi-label">Heifer Preg Rate</div><div class="kpi-value amber">22%</div><div class="kpi-sub">12-mo avg: 26%</div><div class="kpi-trend down-bad">▼ declining</div></div>
+    <div class="kpi-card"><div class="kpi-label">Heat Rate Heifers</div><div class="kpi-value amber">42%</div><div class="kpi-sub">12-mo avg: 47%</div></div>
+    <div class="kpi-card"><div class="kpi-label">Conception Rate</div><div class="kpi-value teal">55%</div><div class="kpi-sub">12-mo avg: 54%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% Preg at 500 Days</div><div class="kpi-value amber">86%</div><div class="kpi-sub">12-mo avg: 90%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Completion Rate</div><div class="kpi-value amber">84.0%</div><div class="kpi-sub">12-mo avg: 86.3%</div><div class="kpi-trend down-bad">▼ declining</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Cull Rate 13-24 mo</div><div class="kpi-value amber">18.8%</div><div class="kpi-sub">12-mo avg: 10.2%</div><div class="kpi-trend up-bad">▲ elevated</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Heifer Performance Detail</div>
+    <table class="data-table">
+      <thead><tr><th>Metric</th><th>Feb-25</th><th>Aug-25</th><th>Nov-25</th><th>Jan-26</th><th>Feb-26</th><th>12-mo Avg</th></tr></thead>
+      <tbody>
+        <tr><td>Preg Rate</td><td class="val">27%</td><td class="val">24%</td><td class="val">29%</td><td class="val">23%</td><td class="val warn">22%</td><td class="val">26%</td></tr>
+        <tr><td>Heat Rate</td><td class="val">48%</td><td class="val">45%</td><td class="val good">52%</td><td class="val warn">42%</td><td class="val warn">42%</td><td class="val">47%</td></tr>
+        <tr><td>Conception Rate</td><td class="val">55%</td><td class="val">53%</td><td class="val good">56%</td><td class="val">58%</td><td class="val">55%</td><td class="val">54%</td></tr>
+        <tr><td>% Preg at 450 Days</td><td class="val">64%</td><td class="val">73%</td><td class="val good">72%</td><td class="val">69%</td><td class="val warn">61%</td><td class="val">70%</td></tr>
+        <tr><td>% Preg at 500 Days</td><td class="val">87%</td><td class="val">90%</td><td class="val good">93%</td><td class="val">91%</td><td class="val">86%</td><td class="val">90%</td></tr>
+        <tr><td>Completion Rate</td><td class="val">88.9%</td><td class="val">74.8%</td><td class="val good">93.1%</td><td class="val">86.7%</td><td class="val warn">84.0%</td><td class="val">86.3%</td></tr>
+        <tr><td>Cull Rate 0-12 mo</td><td class="val">6.9%</td><td class="val">4.7%</td><td class="val good">0.8%</td><td class="val warn">5.6%</td><td class="val warn">5.3%</td><td class="val">4.1%</td></tr>
+        <tr><td>Cull Rate 13-24 mo</td><td class="val">11.5%</td><td class="val">9.8%</td><td class="val good">5.1%</td><td class="val warn">15.9%</td><td class="val bad">18.8%</td><td class="val">10.2%</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box red" style="margin-top:16px">
+      The 13-24 month heifer cull rate jumped to 18.8% — the highest in 12 months (prior high was 14.3% in March 2025). This is the primary driver of declining completion rate. Investigate feet/leg issues, respiratory disease, or BRD in the yearling group.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CULLING ═══════════ -->
+<div id="culling" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card amber"><div class="kpi-label">Cull Rate (Annual)</div><div class="kpi-value amber">37.6%</div><div class="kpi-sub">12-mo avg: 40.5%</div><div class="kpi-trend down-good">▼ improving</div></div>
+    <div class="kpi-card"><div class="kpi-label">Cull Rate (Qtrly)</div><div class="kpi-value amber">41.5%</div><div class="kpi-sub">12-mo avg: 36.3%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Death Rate</div><div class="kpi-value amber">6.5%</div><div class="kpi-sub">12-mo avg: 6.7%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% S&D &lt;60 DIM</div><div class="kpi-value">6.7%</div><div class="kpi-sub">12-mo avg: 7.9%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% Sold &lt;60 DIM</div><div class="kpi-value">5.2%</div><div class="kpi-sub">12-mo avg: 5.6%</div></div>
+    <div class="kpi-card"><div class="kpi-label">% Died &lt;60 DIM</div><div class="kpi-value">1.5%</div><div class="kpi-sub">12-mo low</div><div class="kpi-trend down-good">▼ improving</div></div>
+    <div class="kpi-card"><div class="kpi-label">Lact=1 Annual Cull</div><div class="kpi-value">25.9%</div><div class="kpi-sub">12-mo avg: 23.3%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Lact&gt;1 Annual Cull</div><div class="kpi-value amber">43.4%</div><div class="kpi-sub">12-mo avg: 49.8%</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Culling Detail — Monthly Comparison</div>
+    <table class="data-table">
+      <thead><tr><th>Metric</th><th>Feb-25</th><th>Jul-25</th><th>Oct-25</th><th>Jan-26</th><th>Feb-26</th></tr></thead>
+      <tbody>
+        <tr><td>S&D &lt;60 DIM</td><td class="val warn">8.2%</td><td class="val bad">12.0%</td><td class="val warn">8.5%</td><td class="val">7.5%</td><td class="val good">6.7%</td></tr>
+        <tr><td>Died &lt;60 DIM</td><td class="val">1.8%</td><td class="val bad">3.9%</td><td class="val warn">3.3%</td><td class="val good">1.5%</td><td class="val good">1.5%</td></tr>
+        <tr><td>S&D Lact&gt;1</td><td class="val warn">9.7%</td><td class="val bad">13.9%</td><td class="val warn">10.4%</td><td class="val">8.4%</td><td class="val good">7.5%</td></tr>
+        <tr><td>Cull Rate (Annual)</td><td class="val bad">45.3%</td><td class="val bad">42.0%</td><td class="val warn">39.8%</td><td class="val">35.8%</td><td class="val good">37.6%</td></tr>
+        <tr><td>Cull Lact&gt;1 Annual</td><td class="val bad">57.5%</td><td class="val bad">52.1%</td><td class="val warn">48.2%</td><td class="val warn">41.5%</td><td class="val">43.4%</td></tr>
+        <tr><td>Death Rate Annual</td><td class="val">6.9%</td><td class="val warn">6.9%</td><td class="val warn">6.2%</td><td class="val">6.4%</td><td class="val">6.5%</td></tr>
+      </tbody>
+    </table>
+    <div class="insight-box teal" style="margin-top:16px">
+      Early lactation cow losses (S&D and deaths &lt;60 DIM) have improved significantly since the July 2025 peak. Annual cull rate trending down from 45.3% in February 2025 to 37.6% now — positive direction.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ UDDER HEALTH ═══════════ -->
+<div id="udder" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card red"><div class="kpi-label">Bulk Tank SCC</div><div class="kpi-value red">322,826</div><div class="kpi-sub">cells/mL — 4-month rise</div><div class="kpi-trend up-bad">▲ +6,864</div></div>
+    <div class="kpi-card red"><div class="kpi-label">Clinical Mastitis New</div><div class="kpi-value red">13.2%</div><div class="kpi-sub">EDGE avg: ~4.5%</div><div class="kpi-trend up-bad">▲ +4.5%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Clinical Mastitis Repeat</div><div class="kpi-value amber">9.8%</div><div class="kpi-sub">EDGE avg: ~3.3%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Mast &lt;30 DIM Lact=1</div><div class="kpi-value">3.3%</div><div class="kpi-sub">12-mo avg: 2.7%</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Mast &lt;30 DIM Lact&gt;1</div><div class="kpi-value amber">7.8%</div><div class="kpi-sub">12-mo avg: 4.0%</div><div class="kpi-trend up-bad">▲ elevated</div></div>
+    <div class="kpi-card"><div class="kpi-label">Dry Period DINCU L=1</div><div class="kpi-value">20</div><div class="kpi-sub">days · 12-mo avg: 19</div></div>
+    <div class="kpi-card"><div class="kpi-label">Dry Period DINCU L&gt;1</div><div class="kpi-value">22</div><div class="kpi-sub">days · 12-mo avg: 22</div></div>
+    <div class="kpi-card"><div class="kpi-label">DDRY Lact&gt;1</div><div class="kpi-value">58</div><div class="kpi-sub">days dry · avg: 60</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">SCC 12-Month Trend</div>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Bulk Tank SCC</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Feb-25</td><td class="val">249,102</td><td><span style="color:var(--amber)">↑ elevated</span></td></tr>
+          <tr><td>May-25</td><td class="val">250,973</td><td><span style="color:var(--amber)">↑ elevated</span></td></tr>
+          <tr><td>Aug-25</td><td class="val">273,324</td><td><span style="color:var(--amber)">↑ elevated</span></td></tr>
+          <tr><td>Nov-25</td><td class="val good">169,412</td><td><span style="color:var(--teal)">✓ best month</span></td></tr>
+          <tr><td>Dec-25</td><td class="val">250,750</td><td><span style="color:var(--amber)">↑ rising</span></td></tr>
+          <tr><td>Jan-26</td><td class="val warn">315,962</td><td><span style="color:var(--red)">⚠ high</span></td></tr>
+          <tr><td><strong>Feb-26</strong></td><td class="val bad">322,826</td><td><span style="color:var(--red)">⚠ 4-mo high</span></td></tr>
         </tbody>
       </table>
     </div>
+    <div class="card">
+      <div class="card-title">Mastitis Analysis & Action Plan</div>
+      <div class="insight-box red" style="margin-top:0">
+        <strong>URGENT:</strong> Clinical mastitis new cases at 13.2% is nearly 3× the EDGE database average of 4.5%. The 12-month low was 2.6% in August 2025. Combined with repeat mastitis of 9.8%, this indicates a major environmental pathogen challenge.
+      </div>
+      <div class="insight-box red">
+        Early lactation mastitis in Lact&gt;1 cows (7.8%) is the highest in 12 months (avg 4.0%). This points to close-up dry cow transition issues — review pre-fresh pen hygiene, bedding management, and fresh cow monitoring protocols.
+      </div>
+      <div class="insight-box amber">
+        <strong>Dry Period:</strong> DINCU averages are normal (20-22 days). 12% of Lact=1 have dry periods under 14 days — review pre-fresh pen overcrowding or early fresh cow identification protocols.
+      </div>
+    </div>
   </div>
-</section>
+</div>
+
+<!-- ═══════════ FINANCIAL ═══════════ -->
+<div id="financial" class="panel">
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Mailbox Milk $/cwt</div><div class="kpi-value teal">$17.52</div><div class="kpi-sub">12-mo avg: $20.22</div><div class="kpi-trend up-good">▲ from $16.03</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Feed Cost/Hd</div><div class="kpi-value amber">$7.91</div><div class="kpi-sub">77th percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">Feed Cost/cwt</div><div class="kpi-value">$10.45</div><div class="kpi-sub">50th percentile</div></div>
+    <div class="kpi-card amber"><div class="kpi-label">Actual IOFC/Hd</div><div class="kpi-value amber">$6.35</div><div class="kpi-sub">38th percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">Static IOFC/Hd</div><div class="kpi-value">$6.34</div><div class="kpi-sub">38th percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">IOFC/cwt</div><div class="kpi-value">$7.07</div><div class="kpi-sub">51st percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">ECM Feed Efficiency</div><div class="kpi-value">1.59</div><div class="kpi-sub">36th percentile</div></div>
+    <div class="kpi-card"><div class="kpi-label">DMI Milk Cows</div><div class="kpi-value">59.5</div><div class="kpi-sub">lbs/day · 24th pctile</div></div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">Financial Benchmarks vs Peers (Feb 2026)</div>
+      <table class="data-table">
+        <thead><tr><th>Metric</th><th>Lone Oak</th><th>Pctile</th><th>EDGE Avg</th><th>High</th></tr></thead>
+        <tbody>
+          <tr><td>Bulk Tank Milk</td><td class="val warn">81.4</td><td class="val warn">31st</td><td class="val">84.4</td><td class="val good">102.4</td></tr>
+          <tr><td>Bulk Tank ECM</td><td class="val warn">94.9</td><td class="val warn">32nd</td><td class="val">97.8</td><td class="val good">115.9</td></tr>
+          <tr><td>Bulk Tank Fat %</td><td class="val good">4.49%</td><td class="val good">62nd</td><td class="val">4.45%</td><td class="val">5.32%</td></tr>
+          <tr><td>Bulk Tank Prot %</td><td class="val">3.37%</td><td class="val">41st</td><td class="val">3.42%</td><td class="val">4.09%</td></tr>
+          <tr><td>DMI Milk Cows</td><td class="val warn">59.5</td><td class="val warn">24th</td><td class="val">61.4</td><td class="val">69.9</td></tr>
+          <tr><td>ECM Feed Efficiency</td><td class="val">1.59</td><td class="val warn">36th</td><td class="val">1.62</td><td class="val good">1.84</td></tr>
+          <tr><td>Feed Cost/Hd</td><td class="val warn">$7.91</td><td class="val bad">77th</td><td class="val">$8.29</td><td class="val">$9.58</td></tr>
+          <tr><td>Feed Cost/lb DM</td><td class="val">$0.133</td><td class="val">64th</td><td class="val">$0.135</td><td class="val">$0.154</td></tr>
+          <tr><td>Static IOFC/Hd</td><td class="val warn">$6.34</td><td class="val warn">38th</td><td class="val">$6.63</td><td class="val good">$9.40</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td class="val warn">$6.35</td><td class="val warn">38th</td><td class="val">$6.64</td><td class="val good">$9.40</td></tr>
+          <tr><td>Feed Cost/cwt</td><td class="val">$10.45</td><td class="val">50th</td><td class="val">$10.47</td><td class="val">$14.25</td></tr>
+          <tr><td>IOFC/cwt</td><td class="val">$7.07</td><td class="val">51st</td><td class="val">$7.13</td><td class="val good">$9.11</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="card-title">Milk Price History</div>
+      <table class="data-table">
+        <thead><tr><th>Month</th><th>Mailbox $/cwt</th><th>Class III</th><th>IOFC/cwt</th></tr></thead>
+        <tbody>
+          <tr><td>Feb-25</td><td class="val good">$23.71</td><td class="val good">$20.18</td><td class="val good">$12.55</td></tr>
+          <tr><td>Jun-25</td><td class="val good">$22.88</td><td class="val good">$18.82</td><td class="val good">$12.17</td></tr>
+          <tr><td>Oct-25</td><td class="val">$21.92</td><td class="val">$16.91</td><td class="val">$10.68</td></tr>
+          <tr><td>Nov-25</td><td class="val warn">$16.45</td><td class="val warn">$17.18</td><td class="val warn">$5.68</td></tr>
+          <tr><td>Dec-25</td><td class="val warn">$16.55</td><td class="val warn">$15.34</td><td class="val warn">$6.07</td></tr>
+          <tr><td>Jan-26</td><td class="val warn">$16.03</td><td class="val warn">$14.13</td><td class="val warn">$5.68</td></tr>
+          <tr><td><strong>Feb-26</strong></td><td class="val">$17.52</td><td class="val">$14.52</td><td class="val">$7.07</td></tr>
+        </tbody>
+      </table>
+      <div class="insight-box amber" style="margin-top:16px">
+        Milk prices are recovering from the Nov-Jan low period but remain well below the year-ago levels ($23.71 in Feb-25). With lower milk prices, every cwt of production becomes more critical — the SCC issue costs both component quality and volume.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TRENDS ═══════════ -->
+<div id="trends" class="panel">
+  <div class="section-header">
+    <span class="section-title">12-Month Rolling Trend</span>
+    <span class="section-desc">Feb 2025 → Feb 2026</span>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-title">Production Metrics — Monthly</div>
+    <table class="data-table">
+      <thead><tr><th>Month</th><th>BT Milk</th><th>BT ECM</th><th>150D ACM</th><th>Fat%</th><th>Prot%</th><th>SCC</th></tr></thead>
+      <tbody>
+        <tr><td>Feb-25</td><td class="val">77.2</td><td class="val">89.6</td><td class="val">94.2</td><td class="val">4.44%</td><td class="val">3.39%</td><td class="val warn">249,102</td></tr>
+        <tr><td>Mar-25</td><td class="val">79.3</td><td class="val">91.3</td><td class="val">98.1</td><td class="val">4.37%</td><td class="val">3.37%</td><td class="val warn">246,321</td></tr>
+        <tr><td>Apr-25</td><td class="val">80.0</td><td class="val">91.9</td><td class="val">101.7</td><td class="val">4.37%</td><td class="val">3.34%</td><td class="val warn">257,588</td></tr>
+        <tr><td>May-25</td><td class="val">80.4</td><td class="val">92.0</td><td class="val">103.3</td><td class="val">4.33%</td><td class="val">3.35%</td><td class="val warn">250,973</td></tr>
+        <tr><td>Jun-25</td><td class="val">79.7</td><td class="val">91.1</td><td class="val">103.2</td><td class="val">4.31%</td><td class="val">3.35%</td><td class="val warn">275,439</td></tr>
+        <tr><td>Jul-25</td><td class="val">80.8</td><td class="val">91.5</td><td class="val">102.9</td><td class="val">4.24%</td><td class="val">3.34%</td><td class="val warn">287,368</td></tr>
+        <tr><td>Aug-25</td><td class="val">81.2</td><td class="val">92.6</td><td class="val">100.0</td><td class="val">4.33%</td><td class="val">3.31%</td><td class="val warn">273,324</td></tr>
+        <tr><td>Sep-25</td><td class="val">80.2</td><td class="val">92.4</td><td class="val">97.6</td><td class="val">4.40%</td><td class="val">3.33%</td><td class="val">262,000</td></tr>
+        <tr><td>Oct-25</td><td class="val">82.4</td><td class="val">94.9</td><td class="val">96.1</td><td class="val">4.41%</td><td class="val">3.33%</td><td class="val warn">249,167</td></tr>
+        <tr><td>Nov-25</td><td class="val">82.7</td><td class="val">94.1</td><td class="val">94.9</td><td class="val">4.32%</td><td class="val">3.28%</td><td class="val good">169,412</td></tr>
+        <tr><td>Dec-25</td><td class="val">84.2</td><td class="val good">97.5</td><td class="val">95.4</td><td class="val good">4.51%</td><td class="val">3.33%</td><td class="val warn">250,750</td></tr>
+        <tr><td>Jan-26</td><td class="val good">84.2</td><td class="val good">97.5</td><td class="val">96.3</td><td class="val good">4.51%</td><td class="val">3.35%</td><td class="val warn">315,962</td></tr>
+        <tr><td><strong>Feb-26</strong></td><td class="val warn">81.4</td><td class="val warn">94.9</td><td class="val">96.8</td><td class="val good">4.49%</td><td class="val">3.37%</td><td class="val bad">322,826</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-bottom:24px">
+    <div class="card-title">Reproduction Metrics — Monthly</div>
+    <table class="data-table">
+      <thead><tr><th>Month</th><th>Preg Rate</th><th>Heat Rate</th><th>Conc Rate</th><th>Days Open</th><th>Abort (Curr)</th><th>% Preg</th></tr></thead>
+      <tbody>
+        <tr><td>Feb-25</td><td class="val">26%</td><td class="val">65%</td><td class="val">41%</td><td class="val">115</td><td class="val">8.0%</td><td class="val good">52%</td></tr>
+        <tr><td>May-25</td><td class="val">25%</td><td class="val">63%</td><td class="val">41%</td><td class="val">112</td><td class="val warn">10.1%</td><td class="val good">60%</td></tr>
+        <tr><td>Aug-25</td><td class="val">29%</td><td class="val good">68%</td><td class="val">43%</td><td class="val">111</td><td class="val bad">15.6%</td><td class="val">56%</td></tr>
+        <tr><td>Sep-25</td><td class="val good">29%</td><td class="val">64%</td><td class="val">43%</td><td class="val">112</td><td class="val bad">19.6%</td><td class="val">51%</td></tr>
+        <tr><td>Oct-25</td><td class="val good">29%</td><td class="val good">68%</td><td class="val good">43%</td><td class="val">112</td><td class="val bad">15.5%</td><td class="val">49%</td></tr>
+        <tr><td>Nov-25</td><td class="val good">30%</td><td class="val good">69%</td><td class="val good">44%</td><td class="val">112</td><td class="val warn">12.9%</td><td class="val">46%</td></tr>
+        <tr><td>Dec-25</td><td class="val good">28%</td><td class="val">65%</td><td class="val good">44%</td><td class="val">112</td><td class="val bad">15.6%</td><td class="val">47%</td></tr>
+        <tr><td>Jan-26</td><td class="val">28%</td><td class="val">65%</td><td class="val good">44%</td><td class="val">112</td><td class="val bad">15.6%</td><td class="val">47%</td></tr>
+        <tr><td><strong>Feb-26</strong></td><td class="val">28%</td><td class="val">66%</td><td class="val good">44%</td><td class="val">111</td><td class="val good">6.0%</td><td class="val">48%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Financial Metrics — Monthly</div>
+    <table class="data-table">
+      <thead><tr><th>Month</th><th>Mailbox $/cwt</th><th>Feed $/Hd</th><th>Feed $/cwt</th><th>Actual IOFC/Hd</th><th>IOFC/cwt</th></tr></thead>
+      <tbody>
+        <tr><td>Feb-25</td><td class="val good">$23.71</td><td class="val warn">$7.98</td><td class="val warn">$11.17</td><td class="val good">$10.32</td><td class="val good">$12.55</td></tr>
+        <tr><td>Jun-25</td><td class="val good">$22.88</td><td class="val warn">$8.03</td><td class="val warn">$10.71</td><td class="val good">$10.22</td><td class="val good">$12.17</td></tr>
+        <tr><td>Sep-25</td><td class="val">$21.79</td><td class="val warn">$8.05</td><td class="val warn">$11.03</td><td class="val good">$9.42</td><td class="val good">$10.76</td></tr>
+        <tr><td>Oct-25</td><td class="val">$21.92</td><td class="val warn">$8.38</td><td class="val warn">$11.24</td><td class="val good">$9.67</td><td class="val good">$10.68</td></tr>
+        <tr><td>Nov-25</td><td class="val warn">$16.45</td><td class="val warn">$7.98</td><td class="val warn">$10.77</td><td class="val warn">$5.62</td><td class="val warn">$5.68</td></tr>
+        <tr><td>Dec-25</td><td class="val warn">$16.55</td><td class="val warn">$8.02</td><td class="val warn">$10.48</td><td class="val warn">$5.91</td><td class="val warn">$6.07</td></tr>
+        <tr><td>Jan-26</td><td class="val warn">$16.03</td><td class="val">$7.70</td><td class="val">$10.35</td><td class="val warn">$5.25</td><td class="val warn">$5.68</td></tr>
+        <tr><td><strong>Feb-26</strong></td><td class="val">$17.52</td><td class="val good">$7.91</td><td class="val good">$10.45</td><td class="val">$6.35</td><td class="val">$7.07</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 </main>
 
-<footer class="site-footer">
-  LONE OAK FARMS — #135 &nbsp;|&nbsp; EDGE DAIRY CONSULTING &nbsp;|&nbsp; FEBRUARY 2026 BENCHMARK REPORT
+<footer class="footer">
+  EDGE Dairy Consulting · Lone Oak Farms #135 · February 2026 Monthly Benchmark Summary · Generated automatically from EDGE report data
 </footer>
 
 <script>
-function showTab(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+function showPanel(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 </script>
 </body>

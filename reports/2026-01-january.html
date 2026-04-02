@@ -99,11 +99,65 @@ td.bold{font-weight:600;color:var(--text)}
 .section.active>*:nth-child(2){animation-delay:.04s}
 .section.active>*:nth-child(3){animation-delay:.08s}
 .section.active>*:nth-child(4){animation-delay:.12s}
+
+/* ── Cover page ── */
+#cover{position:fixed;inset:0;z-index:9999;background:#0d1117;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+.cover-logo{font-family:'Oswald',sans-serif;font-size:52px;font-weight:700;letter-spacing:.12em;color:#2dd4a0;margin-bottom:8px}
+.cover-subtitle{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#8a95aa;margin-bottom:48px}
+.cover-divider{width:60px;height:2px;background:#2dd4a0;margin:0 auto 48px}
+.cover-title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:500;letter-spacing:.06em;color:#e8ecf4;text-align:center;margin-bottom:12px}
+.cover-farm{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a95aa;text-align:center;margin-bottom:6px;letter-spacing:.06em}
+.cover-period{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5568;text-align:center;margin-bottom:64px}
+.cover-cta{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#2dd4a0;border:1px solid #2dd4a0;padding:12px 32px;border-radius:3px;transition:background .2s,color .2s}
+#cover:hover .cover-cta{background:#2dd4a0;color:#0d1117}
+@keyframes coverFade{to{opacity:0;pointer-events:none}}
+#cover.leaving{animation:coverFade .5s ease forwards}
+
+/* ── Mobile responsive ── */
+@media(max-width:768px){
+  .site-header{padding:0 16px;height:auto;min-height:56px;flex-wrap:wrap;gap:6px;padding-top:10px;padding-bottom:10px}
+  .header-farm{font-size:16px}
+  .header-meta{font-size:10px;text-align:left}
+  .nav-tabs{padding:0 8px}
+  .nav-tab{padding:12px 12px;font-size:11px}
+  .main{padding:16px}
+  .summary-row{grid-template-columns:1fr 1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .section-heading{font-size:11px}
+  td,th{padding:7px 8px;font-size:11px}
+  td:first-child{font-size:12px}
+  .kpi-value{font-size:22px}
+  .cover-logo{font-size:38px}
+  .cover-title{font-size:22px;padding:0 24px}
+}
+@media(max-width:480px){
+  .summary-row{grid-template-columns:1fr 1fr}
+  .kpi-grid{grid-template-columns:1fr}
+  .summary-cell-val{font-size:20px}
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
+<div id="cover" onclick="enterReport()">
+  <div class="cover-logo">agAI</div>
+  <div class="cover-subtitle">Agricultural Intelligence</div>
+  <div class="cover-divider"></div>
+  <div class="cover-title">Overview for EDGE Dairy Consulting</div>
+  <div class="cover-farm">LONE OAK FARMS &nbsp;·&nbsp; DAIRY #135</div>
+  <div class="cover-period">JANUARY 2026 BENCHMARK REPORT</div>
+  <div class="cover-cta">Enter Report</div>
+</div>
+
+<script>
+function enterReport() {
+  var cover = document.getElementById('cover');
+  cover.classList.add('leaving');
+  setTimeout(function() { cover.style.display = 'none'; }, 500);
+}
+</script>
+
   <div style="display:flex;align-items:baseline">
     <div class="header-farm">LONE OAK FARMS</div>
     <div class="header-id">#135</div>

@@ -7,13 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0f1218;--surface:#171c26;--surface2:#1e2535;
-  --border:#2a3347;--border2:#3a4560;
-  --green:#2dd4a0;--green-dim:#1a7a5e;
-  --amber:#f59e0b;--amber-dim:#7a4e05;
-  --red:#f87171;--red-dim:#7a2020;
-  --blue:#60a5fa;--blue-dim:#1e3a6e;
-  --text:#e8ecf4;--text-dim:#8a95aa;--text-muted:#4a5568;--accent:#2dd4a0;
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --green:#16a34a;--green-dim:#dcfce7;
+  --amber:#d97706;--amber-dim:#fef3c7;
+  --red:#dc2626;--red-dim:#fee2e2;
+  --blue:#2563eb;--blue-dim:#dbeafe;
+  --text:#1e293b;--text-dim:#475569;--text-muted:#94a3b8;--accent:#0d9488;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
@@ -65,7 +65,7 @@ thead th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08
 thead th:first-child{text-align:left}
 tbody tr{border-bottom:1px solid var(--border)}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody tr:hover{background:rgba(0,0,0,.03)}
 td{padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:var(--text-dim)}
 td:first-child{text-align:left;color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:13px}
 td.good{color:var(--green)}
@@ -74,7 +74,8 @@ td.poor{color:var(--red)}
 td.bold{font-weight:600;color:var(--text)}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
-.alert{border-radius:5px;padding:10px 16px;margin-bottom:12px;font-size:13px;display:flex;align-items:flex-start;gap:10px}
+.insights-block{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.alert{border-radius:6px;padding:11px 16px;font-size:13px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
 .alert-icon{font-size:14px;line-height:1.5;flex-shrink:0}
 .alert.red{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
 .alert.amber{background:var(--amber-dim);border:1px solid var(--amber);color:var(--amber)}
@@ -92,6 +93,7 @@ td.bold{font-weight:600;color:var(--text)}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .section.active>*{animation:fadeIn .3s ease both}
 .section.active>*:nth-child(2){animation-delay:.04s}
@@ -131,17 +133,17 @@ td.bold{font-weight:600;color:var(--text)}
   <div class="summary-row">
     <div class="summary-cell">
       <div class="summary-cell-label">Total Herd</div>
-      <div class="summary-cell-val">—</div>
+      <div class="summary-cell-val">7835</div>
       <div class="summary-cell-sub">Cows on inventory</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Milking Cows</div>
-      <div class="summary-cell-val">—</div>
-      <div class="summary-cell-sub">— of herd</div>
+      <div class="summary-cell-val">7064</div>
+      <div class="summary-cell-sub">90% of herd</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Bulk Tank Milk</div>
-      <div class="summary-cell-val">—</div>
+      <div class="summary-cell-val">80.8</div>
       <div class="summary-cell-sub">lbs/cow/day</div>
     </div>
     <div class="summary-cell">
@@ -151,78 +153,88 @@ td.bold{font-weight:600;color:var(--text)}
     </div>
   </div>
 
+  <div class="section-heading">Key Observations — January 2026</div>
+  <div class="insights-block">
+    <div class="alert red"><span class="alert-icon">💊</span><span class="alert-text">New Clinical Mastitis Rate is high at 8.7% — industry target is below 3% (declining trend).</span></div>
+<div class="alert amber"><span class="alert-icon">🧫</span><span class="alert-text">Bulk Tank SCC is elevated at 315,962 cells/mL (declining trend) — target below 200k.</span></div>
+<div class="alert amber"><span class="alert-icon">💀</span><span class="alert-text">Death Rate (6.4%) is above the 5% target (flat trend).</span></div>
+<div class="alert amber"><span class="alert-icon">🌽</span><span class="alert-text">Feed Cost/Head ranks in the 83th percentile — you are spending more than most peers. Review ration costs.</span></div>
+<div class="alert amber"><span class="alert-icon">💵</span><span class="alert-text">Mailbox Milk Price ($16.03/cwt) is significantly below your 13-month average of $20.74 — watch IOFC closely.</span></div>
+<div class="alert green"><span class="alert-icon">📤</span><span class="alert-text">Cull Rate (35.8%) is below your 13-month average of 41.1% — good cow retention.</span></div>
+  </div>
+
   <div class="section-heading">Performance vs. EDGE Database — January 2026</div>
   <div class="kpi-grid">
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card warn">
       <div class="kpi-label">Bulk Tank Milk</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-value">80.8</div>
+      <div class="kpi-sub"><span class="kpi-pct">35</span> Avg 83.3</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:35%"></div>
       </div></div>
     </div>
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card warn">
       <div class="kpi-label">Bulk Tank ECM</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-value">94.3</div>
+      <div class="kpi-sub"><span class="kpi-pct">33</span> Avg 97.1</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:33%"></div>
       </div></div>
     </div>
     
     <div class="kpi-card neutral">
       <div class="kpi-label">Bulk Tank Fat %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-value">4.51</div>
+      <div class="kpi-sub"><span class="kpi-pct">58</span> Avg 4.49</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:58%"></div>
       </div></div>
     </div>
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card warn">
       <div class="kpi-label">Bulk Tank Prot %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-value">3.35</div>
+      <div class="kpi-sub"><span class="kpi-pct">28</span> Avg 3.44</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:28%"></div>
       </div></div>
     </div>
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card poor">
       <div class="kpi-label">Bulk Tank SNF %</div>
-      <div class="kpi-value">—</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-value">9.05</div>
+      <div class="kpi-sub"><span class="kpi-pct">14</span> Avg 9.20</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:14%"></div>
       </div></div>
     </div>
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card warn">
       <div class="kpi-label">ECM Feed Efficiency</div>
       <div class="kpi-value">1.59</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-sub"><span class="kpi-pct">34</span> Avg 1.62</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:34%"></div>
       </div></div>
     </div>
     
     <div class="kpi-card neutral">
       <div class="kpi-label">Static IOFC/Hd</div>
       <div class="kpi-value">$5.25</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-sub"><span class="kpi-pct">41</span> Avg $5.35</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:41%"></div>
       </div></div>
     </div>
     
-    <div class="kpi-card neutral">
+    <div class="kpi-card good">
       <div class="kpi-label">Feed Cost/cwt</div>
       <div class="kpi-value">$10.35</div>
-      <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
+      <div class="kpi-sub"><span class="kpi-pct">60</span> Avg $10.65</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
-        <div class="pct-bar-fill" style="width:0%"></div>
+        <div class="pct-bar-fill" style="width:60%"></div>
       </div></div>
     </div>
   </div>
@@ -237,16 +249,16 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Category</th><th>Value</th></tr></thead>
         <tbody>
-          <tr><td>Total Herd</td><td class="bold">—</td></tr>
-          <tr><td>Milking</td><td class="good">—</td></tr>
-          <tr><td>% Milking</td><td>—</td></tr>
-          <tr><td>Dry</td><td>—</td></tr>
-          <tr><td>% Dry</td><td>—</td></tr>
-          <tr><td>Lactation 1</td><td>—</td></tr>
-          <tr><td>Lactation &gt;1</td><td>—</td></tr>
-          <tr><td>% Lact=1</td><td>—</td></tr>
-          <tr><td>Avg Lactation</td><td class="bold">—</td></tr>
-          <tr><td>Avg DIM Milking</td><td>—</td></tr>
+          <tr><td>Total Herd</td><td class="bold">7835</td></tr>
+          <tr><td>Milking</td><td class="good">7064</td></tr>
+          <tr><td>% Milking</td><td>90%</td></tr>
+          <tr><td>Dry</td><td>771</td></tr>
+          <tr><td>% Dry</td><td>10%</td></tr>
+          <tr><td>Lactation 1</td><td>2483</td></tr>
+          <tr><td>Lactation &gt;1</td><td>5352</td></tr>
+          <tr><td>% Lact=1</td><td>33%</td></tr>
+          <tr><td>Avg Lactation</td><td class="bold">2.5</td></tr>
+          <tr><td>Avg DIM Milking</td><td>161</td></tr>
         </tbody>
       </table>
     </div>
@@ -255,11 +267,11 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Category</th><th>Value</th></tr></thead>
         <tbody>
-          <tr><td>Total Heifers 0–24 mo</td><td class="bold">—</td></tr>
-          <tr><td>Heifers 0–12 mo</td><td>—</td></tr>
-          <tr><td>Heifers 13–24 mo</td><td>—</td></tr>
-          <tr><td>Heifers % of Total Herd</td><td>—</td></tr>
-          <tr><td>Cow:Heifer Ratio</td><td class="bold">—</td></tr>
+          <tr><td>Total Heifers 0–24 mo</td><td class="bold">6627</td></tr>
+          <tr><td>Heifers 0–12 mo</td><td>3881</td></tr>
+          <tr><td>Heifers 13–24 mo</td><td>2746</td></tr>
+          <tr><td>Heifers % of Total Herd</td><td>85%</td></tr>
+          <tr><td>Cow:Heifer Ratio</td><td class="bold">1.2</td></tr>
         </tbody>
       </table>
     </div>
@@ -269,14 +281,14 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="data-table-wrap">
       <div class="data-table-title">Herd Data — Monthly</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th><th>Jun-25</th><th>Jul-25</th><th>Aug-25</th><th>Sep-25</th><th>Oct-25</th><th>Nov-25</th><th>Dec-25</th><th>Jan-26</th><th>Average</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Total Herd</td><td>—</td></tr>
-          <tr><td>Milking</td><td>—</td></tr>
-          <tr><td>% Milking</td><td>—</td></tr>
-          <tr><td>% Dry</td><td>—</td></tr>
-          <tr><td>Avg DIM Milking</td><td>—</td></tr>
-          <tr><td>% Lact=1</td><td>—</td></tr>
+          <tr><td>Total Herd</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,3.9 16.0,6.8 23.0,10.4 30.0,12.4 37.0,11.6 44.0,11.5 51.0,18.7 58.0,15.8 65.0,20.0 72.0,17.5 79.0,16.0 86.0,16.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>7961</td><td>7962</td><td>7756</td><td>7839</td><td>7720</td><td>7791</td><td>7835</td><td>7835</td><td>7934</td><td>8235</td><td>7720</td></tr>
+          <tr><td>Milking</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,6.3 9.0,2.4 16.0,2.0 23.0,6.4 30.0,7.5 37.0,8.4 44.0,14.0 51.0,20.0 58.0,17.8 65.0,19.4 72.0,15.8 79.0,8.8 86.0,8.8" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>7087</td><td>6814</td><td>6518</td><td>6626</td><td>6546</td><td>6724</td><td>7064</td><td>7064</td><td>6979</td><td>7399</td><td>6518</td></tr>
+          <tr><td>% Milking</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,12.3 9.0,4.6 16.0,2.0 23.0,4.6 30.0,4.6 37.0,7.1 44.0,14.9 51.0,20.0 58.0,17.4 65.0,17.4 72.0,14.9 79.0,4.6 86.0,4.6" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>89%</td><td>86%</td><td>84%</td><td>85%</td><td>85%</td><td>86%</td><td>90%</td><td>90%</td><td>88%</td><td>91%</td><td>84%</td></tr>
+          <tr><td>% Dry</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,9.7 9.0,17.4 16.0,20.0 23.0,17.4 30.0,17.4 37.0,14.9 44.0,7.1 51.0,2.0 58.0,4.6 65.0,4.6 72.0,7.1 79.0,17.4 86.0,17.4" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>11%</td><td>14%</td><td>16%</td><td>15%</td><td>15%</td><td>14%</td><td>10%</td><td>10%</td><td>12%</td><td>16%</td><td>9%</td></tr>
+          <tr><td>Avg DIM Milking</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,14.4 9.0,11.8 16.0,8.9 23.0,5.3 30.0,3.3 37.0,2.0 44.0,3.0 51.0,8.5 58.0,11.2 65.0,16.1 72.0,16.4 79.0,20.0 86.0,15.1" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>201</td><td>198</td><td>181</td><td>173</td><td>158</td><td>157</td><td>146</td><td>161</td><td>175</td><td>201</td><td>146</td></tr>
+          <tr><td>% Lact=1</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,12.1 16.0,17.8 23.0,9.9 30.0,9.9 37.0,12.8 44.0,2.7 51.0,7.0 58.0,16.4 65.0,2.0 72.0,4.9 79.0,9.2 86.0,9.2" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>28%</td><td>42%</td><td>36%</td><td>23%</td><td>43%</td><td>39%</td><td>33%</td><td>33%</td><td>31%</td><td>43%</td><td>18%</td></tr>
         </tbody>
       </table>
     </div>
@@ -292,13 +304,13 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>EDGE Avg</th><th>12M Avg</th></tr></thead>
         <tbody>
-          <tr><td>Milk (lbs)</td><td class="bold">—</td><td>—</td><td>—</td></tr>
-          <tr><td>ECM (lbs)</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>MCM (lbs)</td><td>—</td><td></td><td>—</td></tr>
-          <tr><td>150 Day ACM</td><td>—</td><td></td><td>—</td></tr>
-          <tr><td>Fat %</td><td class="good">—</td><td>—</td><td>—</td></tr>
-          <tr><td>Protein %</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>SNF %</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Milk (lbs)</td><td class="bold">80.8</td><td>83.3</td><td>80.2</td></tr>
+          <tr><td>ECM (lbs)</td><td>94.3</td><td>97.1</td><td>92.3</td></tr>
+          <tr><td>MCM (lbs)</td><td>93.9</td><td></td><td>93.5</td></tr>
+          <tr><td>150 Day ACM</td><td>96.3</td><td></td><td>97.9</td></tr>
+          <tr><td>Fat %</td><td class="good">4.51</td><td>4.49</td><td>4.38</td></tr>
+          <tr><td>Protein %</td><td>3.35</td><td>3.44</td><td>3.34</td></tr>
+          <tr><td>SNF %</td><td>9.05</td><td>9.20</td><td>9.10</td></tr>
         </tbody>
       </table>
     </div>
@@ -307,15 +319,15 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>W4MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W4MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W4MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W4MK Lact=1</td><td>71.9</td><td>69.8</td><td>75.1</td><td>61.1</td></tr>
+          <tr><td>W4MK Lact=2</td><td>101.4</td><td>99.9</td><td>115.4</td><td>64.6</td></tr>
+          <tr><td>W4MK Lact&gt;2</td><td>105.6</td><td>99.7</td><td>111.1</td><td>62.6</td></tr>
+          <tr><td>W8MK Lact=1</td><td>84.3</td><td>79.2</td><td>86.0</td><td>67.3</td></tr>
+          <tr><td>W8MK Lact=2</td><td>104.8</td><td>102.9</td><td>118.3</td><td>62.0</td></tr>
+          <tr><td>W8MK Lact&gt;2</td><td>113.4</td><td>105.6</td><td>118.5</td><td>66.0</td></tr>
+          <tr><td>W12MK Lact=1</td><td>86.1</td><td>78.8</td><td>86.9</td><td>64.5</td></tr>
+          <tr><td>W12MK Lact=2</td><td>102.3</td><td>100.8</td><td>112.5</td><td>82.1</td></tr>
+          <tr><td>W12MK Lact&gt;2</td><td>107.6</td><td>102.7</td><td>116.2</td><td>85.6</td></tr>
         </tbody>
       </table>
     </div>
@@ -325,13 +337,13 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="data-table-wrap">
       <div class="data-table-title">Bulk Tank — Monthly</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th><th>Jun-25</th><th>Jul-25</th><th>Aug-25</th><th>Sep-25</th><th>Oct-25</th><th>Nov-25</th><th>Dec-25</th><th>Jan-26</th><th>Average</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank ECM</td><td>—</td></tr>
-          <tr><td>Bulk Tank Fat %</td><td>—</td></tr>
-          <tr><td>Bulk Tank Prot %</td><td>—</td></tr>
-          <tr><td>Bulk Tank SNF %</td><td>—</td></tr>
+          <tr><td>Bulk Tank Milk</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,14.6 16.0,10.8 23.0,9.6 30.0,8.8 37.0,10.1 44.0,8.1 51.0,7.4 58.0,9.2 65.0,5.2 72.0,4.7 79.0,2.0 86.0,8.1" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>79.7</td><td>80.8</td><td>81.2</td><td>80.2</td><td>82.4</td><td>82.7</td><td>84.2</td><td>80.8</td><td>80.2</td><td>84.2</td><td>74.2</td></tr>
+          <tr><td>Bulk Tank ECM</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,15.0 16.0,12.2 23.0,11.2 30.0,11.1 37.0,12.6 44.0,11.9 51.0,10.1 58.0,10.4 65.0,6.3 72.0,7.6 79.0,2.0 86.0,7.3" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>91.1</td><td>91.5</td><td>92.6</td><td>92.4</td><td>94.9</td><td>94.1</td><td>97.5</td><td>94.3</td><td>92.3</td><td>97.5</td><td>86.6</td></tr>
+          <tr><td>Bulk Tank Fat %</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,4.0 9.0,6.7 16.0,11.3 23.0,11.3 30.0,14.0 37.0,15.3 44.0,20.0 51.0,14.0 58.0,9.3 65.0,8.7 72.0,14.7 79.0,6.0 86.0,2.0" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>4.31</td><td>4.24</td><td>4.33</td><td>4.40</td><td>4.41</td><td>4.32</td><td>4.45</td><td>4.51</td><td>4.38</td><td>4.51</td><td>4.24</td></tr>
+          <tr><td>Bulk Tank Prot %</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,3.5 16.0,6.5 23.0,11.0 30.0,9.5 37.0,9.5 44.0,11.0 51.0,15.5 58.0,12.5 65.0,12.5 72.0,20.0 79.0,12.5 86.0,9.5" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>3.35</td><td>3.34</td><td>3.31</td><td>3.33</td><td>3.33</td><td>3.28</td><td>3.33</td><td>3.35</td><td>3.34</td><td>3.40</td><td>3.28</td></tr>
+          <tr><td>Bulk Tank SNF %</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,5.8 16.0,5.8 23.0,8.6 30.0,8.6 37.0,7.7 44.0,9.6 51.0,15.3 58.0,13.4 65.0,13.4 72.0,20.0 79.0,15.3 86.0,15.3" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>9.13</td><td>9.11</td><td>9.05</td><td>9.07</td><td>9.07</td><td>9.00</td><td>9.05</td><td>9.05</td><td>9.10</td><td>9.19</td><td>9.00</td></tr>
         </tbody>
       </table>
     </div>
@@ -347,14 +359,14 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Pregnancy Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Heat Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Conception Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
-          <tr><td>Days Open</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Herd Pregnant</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Pregnancy Rate</td><td class="bold">28%</td><td>27%</td><td class="good">30%</td><td class="poor">25%</td></tr>
+          <tr><td>Heat Rate</td><td class="bold">66%</td><td>66%</td><td class="good">69%</td><td class="poor">63%</td></tr>
+          <tr><td>Conception Rate</td><td class="bold">44%</td><td>42%</td><td class="good">44%</td><td class="poor">41%</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td class="bold">48%</td><td>45%</td><td class="good">48%</td><td class="poor">43%</td></tr>
+          <tr><td>Days Open</td><td>112</td><td>112</td><td>116</td><td>110</td></tr>
+          <tr><td>% Herd Pregnant</td><td>47%</td><td>53%</td><td>60%</td><td>46%</td></tr>
+          <tr><td>Abortion Rate (Current)</td><td>—</td><td>12.7%</td><td>19.6%</td><td>6.2%</td></tr>
+          <tr><td>Abortion Rate (Annual)</td><td>11.4%</td><td>12.2%</td><td>13.1%</td><td>11.0%</td></tr>
         </tbody>
       </table>
     </div>
@@ -363,9 +375,9 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Milestone</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>% Preg at 100 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 150 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 200 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Preg at 100 DIM</td><td>54%</td><td>57%</td><td>65%</td><td>52%</td></tr>
+          <tr><td>% Preg at 150 DIM</td><td>73%</td><td>77%</td><td>85%</td><td>72%</td></tr>
+          <tr><td>% Preg at 200 DIM</td><td>85%</td><td>86%</td><td>93%</td><td>81%</td></tr>
         </tbody>
       </table>
     </div>
@@ -376,10 +388,10 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Pregnancy Rate</td><td>30%</td><td>33%</td><td>39%</td><td>30%</td></tr>
+          <tr><td>Heat Rate</td><td>65%</td><td>67%</td><td>72%</td><td>63%</td></tr>
+          <tr><td>Conception Rate</td><td>47%</td><td>50%</td><td>56%</td><td>42%</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>46%</td><td>53%</td><td>62%</td><td>40%</td></tr>
         </tbody>
       </table>
     </div>
@@ -388,10 +400,10 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Pregnancy Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Pregnancy Rate</td><td>27%</td><td>26%</td><td>34%</td><td>20%</td></tr>
+          <tr><td>Heat Rate</td><td>66%</td><td>64%</td><td>70%</td><td>56%</td></tr>
+          <tr><td>Conception Rate</td><td>39%</td><td>41%</td><td>49%</td><td>32%</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>42%</td><td>44%</td><td>49%</td><td>39%</td></tr>
         </tbody>
       </table>
     </div>
@@ -407,16 +419,16 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Age at Fresh (mo)</td><td>23.3</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>VWP Heifers</td><td>415</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Pregnancy Rate</td><td>23%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heat Rate</td><td>42%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Conception Rate</td><td>58%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>1st Serv Conc Rate</td><td>61%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 450 Days</td><td>69%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 500 Days</td><td>91%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Preg at 550 Days</td><td>94%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Completion Rate</td><td>86.7%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Age at Fresh (mo)</td><td>23.3</td><td>23.5</td><td>23.8</td><td>23.1</td></tr>
+          <tr><td>VWP Heifers</td><td>415</td><td>398</td><td>415</td><td>389</td></tr>
+          <tr><td>Pregnancy Rate</td><td>23%</td><td>25%</td><td>29%</td><td>17%</td></tr>
+          <tr><td>Heat Rate</td><td>42%</td><td>46%</td><td>52%</td><td>33%</td></tr>
+          <tr><td>Conception Rate</td><td>58%</td><td>54%</td><td>59%</td><td>46%</td></tr>
+          <tr><td>1st Serv Conc Rate</td><td>61%</td><td>58%</td><td>62%</td><td>52%</td></tr>
+          <tr><td>% Preg at 450 Days</td><td>69%</td><td>71%</td><td>77%</td><td>64%</td></tr>
+          <tr><td>% Preg at 500 Days</td><td>91%</td><td>90%</td><td>93%</td><td>86%</td></tr>
+          <tr><td>% Preg at 550 Days</td><td>94%</td><td>94%</td><td>97%</td><td>92%</td></tr>
+          <tr><td>Completion Rate</td><td>86.7%</td><td>86.6%</td><td>93.1%</td><td>74.8%</td></tr>
         </tbody>
       </table>
     </div>
@@ -425,9 +437,9 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Annualized Cull — All</td><td>9.8%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate 0–12 mo</td><td>5.6%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate 13–24 mo</td><td>15.9%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Annualized Cull — All</td><td>9.8%</td><td>6.5%</td><td>11.1%</td><td>2.7%</td></tr>
+          <tr><td>Cull Rate 0–12 mo</td><td>5.6%</td><td>4.2%</td><td>6.9%</td><td>0.8%</td></tr>
+          <tr><td>Cull Rate 13–24 mo</td><td>15.9%</td><td>9.6%</td><td>21.1%</td><td>4.0%</td></tr>
         </tbody>
       </table>
     </div>
@@ -443,9 +455,9 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>% S&amp;D &lt;60 DIM (All)</td><td>8.4%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Sold &lt;60 DIM</td><td>7.3%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Died &lt;60 DIM</td><td>1.2%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% S&amp;D &lt;60 DIM (All)</td><td>8.4%</td><td>9.2%</td><td>13.9%</td><td>5.8%</td></tr>
+          <tr><td>% Sold &lt;60 DIM</td><td>7.3%</td><td>6.3%</td><td>8.6%</td><td>4.1%</td></tr>
+          <tr><td>% Died &lt;60 DIM</td><td>1.2%</td><td>2.8%</td><td>5.3%</td><td>1.2%</td></tr>
           <tr><td>% S&amp;D Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% S&amp;D Lact&gt;1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
@@ -456,10 +468,10 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Cull Rate (Annual)</td><td>35.8%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate Lact=1</td><td>24.3%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate Lact&gt;1</td><td>41.5%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Death Rate (Annual)</td><td>6.4%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate (Annual)</td><td>35.8%</td><td>41.1%</td><td>45.3%</td><td>35.5%</td></tr>
+          <tr><td>Cull Rate Lact=1</td><td>24.3%</td><td>23.1%</td><td>24.3%</td><td>22.2%</td></tr>
+          <tr><td>Cull Rate Lact&gt;1</td><td>41.5%</td><td>50.8%</td><td>57.5%</td><td>41.5%</td></tr>
+          <tr><td>Death Rate (Annual)</td><td>6.4%</td><td>6.8%</td><td>7.4%</td><td>6.0%</td></tr>
         </tbody>
       </table>
     </div>
@@ -470,9 +482,9 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
         <tbody>
-          <tr><td>DINCU (days)</td><td>19</td><td>—</td></tr>
-          <tr><td>% &lt;14 Days</td><td>10%</td><td>—</td></tr>
-          <tr><td>% &gt;28 Days</td><td>4%</td><td>—</td></tr>
+          <tr><td>DINCU (days)</td><td>19</td><td>19</td></tr>
+          <tr><td>% &lt;14 Days</td><td>10%</td><td>12%</td></tr>
+          <tr><td>% &gt;28 Days</td><td>4%</td><td>5%</td></tr>
         </tbody>
       </table>
     </div>
@@ -481,11 +493,11 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
         <tbody>
-          <tr><td>DINCU (days)</td><td>22</td><td>—</td></tr>
-          <tr><td>% &lt;14 Days</td><td>5%</td><td>—</td></tr>
-          <tr><td>% &gt;28 Days</td><td>8%</td><td>—</td></tr>
-          <tr><td>DDRY (days)</td><td>59</td><td>—</td></tr>
-          <tr><td>% DDRY &gt;75 Days</td><td>2%</td><td>—</td></tr>
+          <tr><td>DINCU (days)</td><td>22</td><td>21</td></tr>
+          <tr><td>% &lt;14 Days</td><td>5%</td><td>9%</td></tr>
+          <tr><td>% &gt;28 Days</td><td>8%</td><td>10%</td></tr>
+          <tr><td>DDRY (days)</td><td>59</td><td>60</td></tr>
+          <tr><td>% DDRY &gt;75 Days</td><td>2%</td><td>6%</td></tr>
         </tbody>
       </table>
     </div>
@@ -501,11 +513,11 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank SCC</td><td class="bold">3 15,962</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Clinical Mastitis New</td><td>8.7%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Clinical Mastitis Repeat</td><td>4.8%</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
-          <tr><td>% Mast &lt;30 DIM Lact=1</td><td>1.5%</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Mast &lt;30 DIM Lact&gt;1</td><td>3.7%</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Bulk Tank SCC</td><td class="bold">315,962</td><td>258,595</td><td class="poor">315,962</td><td class="good">169,412</td></tr>
+          <tr><td>% Clinical Mastitis New</td><td>8.7%</td><td>3.8%</td><td class="poor">8.7%</td><td class="good">2.6%</td></tr>
+          <tr><td>% Clinical Mastitis Repeat</td><td>4.8%</td><td>2.7%</td><td class="poor">4.8%</td><td class="good">1.8%</td></tr>
+          <tr><td>% Mast &lt;30 DIM Lact=1</td><td>1.5%</td><td>2.7%</td><td>6.7%</td><td>0.5%</td></tr>
+          <tr><td>% Mast &lt;30 DIM Lact&gt;1</td><td>3.7%</td><td>3.9%</td><td>6.7%</td><td>1.7%</td></tr>
         </tbody>
       </table>
     </div>
@@ -514,7 +526,7 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Month</th><th>Bulk Tank SCC</th></tr></thead>
         <tbody>
-          <tr><td>Jan-26</td><td>3 15,962</td></tr>
+          <tr><td>Jan-25</td><td>274,333</td></tr><tr><td>Feb-25</td><td>249,102</td></tr><tr><td>Mar-25</td><td>246,321</td></tr><tr><td>Apr-25</td><td>257,588</td></tr><tr><td>May-25</td><td>250,973</td></tr><tr><td>Jun-25</td><td>275,439</td></tr><tr><td>Jul-25</td><td>287,368</td></tr><tr><td>Aug-25</td><td>273,324</td></tr><tr><td>Sep-25</td><td>262,000</td></tr><tr><td>Oct-25</td><td>249,167</td></tr><tr><td>Nov-25</td><td>169,412</td></tr><tr><td>Dec-25</td><td>250,750</td></tr><tr><td>Jan-26</td><td>315,962</td></tr>
         </tbody>
       </table>
     </div>
@@ -530,9 +542,9 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Mailbox Milk $/cwt</td><td class="bold">$16.03</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Class III $/cwt</td><td>$14.13</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Class IV $/cwt</td><td>$13.55</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td class="bold">$16.03</td><td>$20.74</td><td>$24.33</td><td>$16.03</td></tr>
+          <tr><td>Class III $/cwt</td><td>$14.13</td><td>$17.67</td><td>$20.34</td><td>$14.13</td></tr>
+          <tr><td>Class IV $/cwt</td><td>$13.55</td><td>$17.09</td><td>$20.73</td><td>$13.55</td></tr>
           <tr><td>Statistical Uniform $/cwt</td><td>$13.79</td><td></td><td></td><td></td></tr>
           <tr><td>PPD $/cwt</td><td>-$0.34</td><td></td><td></td><td></td></tr>
           <tr><td>Class III Fat $/lb</td><td>$1.453</td><td></td><td></td><td></td></tr>
@@ -545,14 +557,14 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>%ile</th><th>EDGE Avg</th></tr></thead>
         <tbody>
-          <tr><td>DMI Milk Cows</td><td>59.5</td><td>—</td><td>—</td></tr>
-          <tr><td>ECM Feed Efficiency</td><td>1.59</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/Hd/Day</td><td>$7.70</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/lb DM</td><td>$0.130</td><td>—</td><td>—</td></tr>
-          <tr><td>Static IOFC/Hd</td><td>$5.25</td><td>—</td><td>—</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td class="bold">$5.25</td><td>—</td><td>—</td></tr>
-          <tr><td>Feed Cost/cwt</td><td>$10.35</td><td>—</td><td>—</td></tr>
-          <tr><td>IOFC/cwt</td><td>$5.68</td><td>—</td><td>—</td></tr>
+          <tr><td>DMI Milk Cows</td><td>59.5</td><td>28</td><td>60.8</td></tr>
+          <tr><td>ECM Feed Efficiency</td><td>1.59</td><td>34</td><td>1.62</td></tr>
+          <tr><td>Feed Cost/Hd/Day</td><td>$7.70</td><td>83</td><td>$8.24</td></tr>
+          <tr><td>Feed Cost/lb DM</td><td>$0.130</td><td>83</td><td>$0.135</td></tr>
+          <tr><td>Static IOFC/Hd</td><td>$5.25</td><td>41</td><td>$5.35</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td class="bold">$5.25</td><td>40</td><td>$5.37</td></tr>
+          <tr><td>Feed Cost/cwt</td><td>$10.35</td><td>60</td><td>$10.65</td></tr>
+          <tr><td>IOFC/cwt</td><td>$5.68</td><td>51</td><td>$5.60</td></tr>
         </tbody>
       </table>
     </div>
@@ -562,13 +574,13 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="data-table-wrap">
       <div class="data-table-title">Monthly Financial Summary</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th><th>Jun-25</th><th>Jul-25</th><th>Aug-25</th><th>Sep-25</th><th>Oct-25</th><th>Nov-25</th><th>Dec-25</th><th>Jan-26</th><th>Average</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Mailbox Milk $/cwt</td><td>$16.03</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$5.25</td></tr>
-          <tr><td>Feed Cost/Hd</td><td>$7.70</td></tr>
-          <tr><td>Feed Cost/cwt</td><td>$10.35</td></tr>
-          <tr><td>IOFC/cwt</td><td>$5.68</td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,3.3 16.0,7.4 23.0,9.3 30.0,6.8 37.0,5.1 44.0,10.1 51.0,10.3 58.0,7.5 65.0,7.2 72.0,19.1 79.0,18.9 86.0,20.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$22.88</td><td>$20.59</td><td>$20.51</td><td>$21.79</td><td>$21.92</td><td>$16.45</td><td>$16.55</td><td>$16.03</td><td>$20.74</td><td>$24.33</td><td>$16.03</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,2.6 16.0,6.9 23.0,8.4 30.0,4.1 37.0,2.9 44.0,8.7 51.0,8.7 58.0,5.7 65.0,4.8 72.0,18.7 79.0,17.7 86.0,20.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$10.22</td><td>$8.53</td><td>$8.53</td><td>$9.42</td><td>$9.67</td><td>$5.62</td><td>$5.91</td><td>$5.25</td><td>$8.58</td><td>$10.49</td><td>$5.25</td></tr>
+          <tr><td>Feed Cost/Hd</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,10.9 16.0,4.9 23.0,7.8 30.0,12.0 37.0,9.8 44.0,8.0 51.0,7.8 58.0,9.3 65.0,2.0 72.0,10.9 79.0,10.0 86.0,17.1" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$8.03</td><td>$8.11</td><td>$8.12</td><td>$8.05</td><td>$8.38</td><td>$7.98</td><td>$8.02</td><td>$7.70</td><td>$8.02</td><td>$8.38</td><td>$7.57</td></tr>
+          <tr><td>Feed Cost/cwt</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,3.0 9.0,3.4 16.0,6.2 23.0,11.7 30.0,17.4 37.0,12.7 44.0,11.5 51.0,9.1 58.0,6.2 65.0,2.0 72.0,11.5 79.0,17.4 86.0,20.0" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$10.71</td><td>$10.77</td><td>$10.89</td><td>$11.03</td><td>$11.24</td><td>$10.77</td><td>$10.48</td><td>$10.35</td><td>$10.84</td><td>$11.24</td><td>$10.35</td></tr>
+          <tr><td>IOFC/cwt</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,3.4 16.0,7.7 23.0,9.1 30.0,5.6 37.0,4.3 44.0,10.0 51.0,10.5 58.0,7.7 65.0,7.9 72.0,20.0 79.0,19.1 86.0,20.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$12.17</td><td>$9.82</td><td>$9.63</td><td>$10.76</td><td>$10.68</td><td>$5.68</td><td>$6.07</td><td>$5.68</td><td>$9.91</td><td>$13.14</td><td>$5.68</td></tr>
         </tbody>
       </table>
     </div>
@@ -582,17 +594,17 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="data-table-wrap">
       <div class="data-table-title">Key Metrics — All Months</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th><th>Jun-25</th><th>Jul-25</th><th>Aug-25</th><th>Sep-25</th><th>Oct-25</th><th>Nov-25</th><th>Dec-25</th><th>Jan-26</th><th>Average</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank SCC</td><td>3 15,962</td></tr>
-          <tr><td>Preg Rate Annual</td><td>—</td></tr>
-          <tr><td>Preg Rate Heifers</td><td>23%</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td></tr>
-          <tr><td>Cull Rate (Annual)</td><td>35.8%</td></tr>
-          <tr><td>Death Rate (Annual)</td><td>6.4%</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$5.25</td></tr>
-          <tr><td>Mailbox Milk $/cwt</td><td>$16.03</td></tr>
+          <tr><td>Bulk Tank Milk</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,14.6 16.0,10.8 23.0,9.6 30.0,8.8 37.0,10.1 44.0,8.1 51.0,7.4 58.0,9.2 65.0,5.2 72.0,4.7 79.0,2.0 86.0,8.1" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>79.7</td><td>80.8</td><td>81.2</td><td>80.2</td><td>82.4</td><td>82.7</td><td>84.2</td><td>80.8</td><td>80.2</td><td>84.2</td><td>74.2</td></tr>
+          <tr><td>Bulk Tank SCC</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,7.1 9.0,10.2 16.0,10.6 23.0,9.2 30.0,10.0 37.0,7.0 44.0,5.5 51.0,7.2 58.0,8.6 65.0,10.2 72.0,20.0 79.0,10.0 86.0,2.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>275,439</td><td>287,368</td><td>273,324</td><td>262,000</td><td>249,167</td><td>169,412</td><td>250,750</td><td>315,962</td><td>258,595</td><td>315,962</td><td>169,412</td></tr>
+          <tr><td>Preg Rate Annual</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,16.4 9.0,16.4 16.0,12.8 23.0,20.0 30.0,12.8 37.0,9.2 44.0,12.8 51.0,5.6 58.0,12.8 65.0,5.6 72.0,2.0 79.0,9.2 86.0,9.2" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>28%</td><td>27%</td><td>29%</td><td>27%</td><td>29%</td><td>30%</td><td>28%</td><td>28%</td><td>27%</td><td>30%</td><td>25%</td></tr>
+          <tr><td>Preg Rate Heifers</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,20.0 9.0,5.0 16.0,6.5 23.0,6.5 30.0,8.0 37.0,6.5 44.0,8.0 51.0,9.5 58.0,9.5 65.0,5.0 72.0,2.0 79.0,2.0 86.0,11.0" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>26%</td><td>25%</td><td>24%</td><td>24%</td><td>27%</td><td>29%</td><td>29%</td><td>23%</td><td>25%</td><td>29%</td><td>17%</td></tr>
+          <tr><td>Abortion Rate (Current)</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,12.2 9.6,17.6 17.3,20.0 24.9,14.9 32.5,14.8 40.2,15.0 47.8,5.5 55.5,7.4 63.1,2.0 70.7,7.5 78.4,11.0 86.0,7.4" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>9.9%</td><td>17.0%</td><td>15.6%</td><td>19.6%</td><td>15.5%</td><td>12.9%</td><td>15.6%</td><td>—</td><td>12.7%</td><td>19.6%</td><td>6.2%</td></tr>
+          <tr><td>Cull Rate (Annual)</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,3.1 9.0,2.0 16.0,3.7 23.0,4.2 30.0,7.1 37.0,8.4 44.0,8.1 51.0,8.6 58.0,12.7 65.0,12.1 72.0,17.4 79.0,20.0 86.0,19.4" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>41.8%</td><td>42.0%</td><td>41.7%</td><td>39.5%</td><td>39.8%</td><td>36.9%</td><td>35.5%</td><td>35.8%</td><td>41.1%</td><td>45.3%</td><td>35.5%</td></tr>
+          <tr><td>Death Rate (Annual)</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,9.7 9.0,8.4 16.0,8.4 23.0,7.1 30.0,7.1 37.0,5.9 44.0,8.4 51.0,3.3 58.0,2.0 65.0,17.4 72.0,18.7 79.0,20.0 86.0,14.9" fill="none" stroke="#16a34a" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>7.1%</td><td>6.9%</td><td>7.3%</td><td>7.4%</td><td>6.2%</td><td>6.1%</td><td>6.0%</td><td>6.4%</td><td>6.8%</td><td>7.4%</td><td>6.0%</td></tr>
+          <tr><td>Actual IOFC/Hd</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,2.6 16.0,6.9 23.0,8.4 30.0,4.1 37.0,2.9 44.0,8.7 51.0,8.7 58.0,5.7 65.0,4.8 72.0,18.7 79.0,17.7 86.0,20.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$10.22</td><td>$8.53</td><td>$8.53</td><td>$9.42</td><td>$9.67</td><td>$5.62</td><td>$5.91</td><td>$5.25</td><td>$8.58</td><td>$10.49</td><td>$5.25</td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td style='padding:4px 8px;white-space:nowrap'><svg width="88" height="22" style="vertical-align:middle;flex-shrink:0" viewBox="0 0 88 22"><polyline points="2.0,2.0 9.0,3.3 16.0,7.4 23.0,9.3 30.0,6.8 37.0,5.1 44.0,10.1 51.0,10.3 58.0,7.5 65.0,7.2 72.0,19.1 79.0,18.9 86.0,20.0" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg></td><td>$22.88</td><td>$20.59</td><td>$20.51</td><td>$21.79</td><td>$21.92</td><td>$16.45</td><td>$16.55</td><td>$16.03</td><td>$20.74</td><td>$24.33</td><td>$16.03</td></tr>
         </tbody>
       </table>
     </div>

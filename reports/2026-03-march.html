@@ -3,20 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lone Oak Farms — January 2026 Benchmark Report</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Lone Oak Farms — March 2026 Benchmark Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0f1218;--surface:#171c26;--surface2:#1e2535;
-  --border:#2a3347;--border2:#3a4560;
-  --green:#2dd4a0;--green-dim:#1a7a5e;
-  --amber:#f59e0b;--amber-dim:#7a4e05;
-  --red:#f87171;--red-dim:#7a2020;
-  --blue:#60a5fa;--blue-dim:#1e3a6e;
-  --text:#e8ecf4;--text-dim:#8a95aa;--text-muted:#4a5568;--accent:#2dd4a0;
+  --bg:#f0f4f8;--surface:#ffffff;--surface2:#f8fafc;
+  --border:#e2e8f0;--border2:#cbd5e1;
+  --green:#16a34a;--green-dim:#dcfce7;
+  --amber:#d97706;--amber-dim:#fef3c7;
+  --red:#dc2626;--red-dim:#fee2e2;
+  --blue:#2563eb;--blue-dim:#dbeafe;
+  --text:#1e293b;--text-dim:#475569;--text-muted:#94a3b8;--accent:#0d9488;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.5;min-height:100vh}
 .site-header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 32px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;height:60px}
 .header-farm{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;letter-spacing:.05em}
@@ -66,7 +65,7 @@ thead th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08
 thead th:first-child{text-align:left}
 tbody tr{border-bottom:1px solid var(--border)}
 tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:rgba(255,255,255,.02)}
+tbody tr:hover{background:rgba(0,0,0,.03)}
 td{padding:9px 16px;font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:var(--text-dim)}
 td:first-child{text-align:left;color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:13px}
 td.good{color:var(--green)}
@@ -74,10 +73,9 @@ td.warn{color:var(--amber)}
 td.poor{color:var(--red)}
 td.bold{font-weight:600;color:var(--text)}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
-.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
-@media(max-width:900px){.two-col{grid-template-columns:1fr}.three-col{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.three-col{grid-template-columns:1fr}}
-.alert{border-radius:5px;padding:10px 16px;margin-bottom:12px;font-size:13px;display:flex;align-items:flex-start;gap:10px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+.insights-block{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.alert{border-radius:6px;padding:11px 16px;font-size:13px;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
 .alert-icon{font-size:14px;line-height:1.5;flex-shrink:0}
 .alert.red{background:var(--red-dim);border:1px solid var(--red);color:var(--red)}
 .alert.amber{background:var(--amber-dim);border:1px solid var(--amber);color:var(--amber)}
@@ -89,35 +87,84 @@ td.bold{font-weight:600;color:var(--text)}
 .summary-cell-label{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
 .summary-cell-val{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--text);line-height:1}
 .summary-cell-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
-@media(max-width:700px){.summary-row{grid-template-columns:1fr 1fr}}
-.badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:1px 6px;border-radius:2px;font-weight:500}
-.badge-green{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
-.badge-amber{background:var(--amber-dim);color:var(--amber);border:1px solid var(--amber)}
-.badge-red{background:var(--red-dim);color:var(--red);border:1px solid var(--red)}
-.badge-blue{background:var(--blue-dim);color:var(--blue);border:1px solid var(--blue)}
 .trend-wrap{overflow-x:auto;margin-bottom:24px}
-.trend-wrap table{min-width:900px}
+.trend-wrap table{min-width:700px}
 .site-footer{border-top:1px solid var(--border);padding:20px 32px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-muted);margin-top:40px}
 ::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text-muted)}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .section.active>*{animation:fadeIn .3s ease both}
 .section.active>*:nth-child(2){animation-delay:.04s}
 .section.active>*:nth-child(3){animation-delay:.08s}
 .section.active>*:nth-child(4){animation-delay:.12s}
+
+/* ── Cover page ── */
+#cover{position:fixed;inset:0;z-index:9999;background:#0d1117;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+.cover-logo{font-family:'Oswald',sans-serif;font-size:52px;font-weight:700;letter-spacing:.12em;color:#2dd4a0;margin-bottom:8px}
+.cover-subtitle{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#8a95aa;margin-bottom:48px}
+.cover-divider{width:60px;height:2px;background:#2dd4a0;margin:0 auto 48px}
+.cover-title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:500;letter-spacing:.06em;color:#e8ecf4;text-align:center;margin-bottom:12px}
+.cover-farm{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#8a95aa;text-align:center;margin-bottom:6px;letter-spacing:.06em}
+.cover-period{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5568;text-align:center;margin-bottom:64px}
+.cover-cta{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#2dd4a0;border:1px solid #2dd4a0;padding:12px 32px;border-radius:3px;transition:background .2s,color .2s}
+#cover:hover .cover-cta{background:#2dd4a0;color:#0d1117}
+@keyframes coverFade{to{opacity:0;pointer-events:none}}
+#cover.leaving{animation:coverFade .5s ease forwards}
+
+/* ── Mobile responsive ── */
+@media(max-width:768px){
+  .site-header{padding:0 16px;height:auto;min-height:56px;flex-wrap:wrap;gap:6px;padding-top:10px;padding-bottom:10px}
+  .header-farm{font-size:16px}
+  .header-meta{font-size:10px;text-align:left}
+  .nav-tabs{padding:0 8px}
+  .nav-tab{padding:12px 12px;font-size:11px}
+  .main{padding:16px}
+  .summary-row{grid-template-columns:1fr 1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}
+  .section-heading{font-size:11px}
+  td,th{padding:7px 8px;font-size:11px}
+  td:first-child{font-size:12px}
+  .kpi-value{font-size:22px}
+  .cover-logo{font-size:38px}
+  .cover-title{font-size:22px;padding:0 24px}
+}
+@media(max-width:480px){
+  .summary-row{grid-template-columns:1fr 1fr}
+  .kpi-grid{grid-template-columns:1fr}
+  .summary-cell-val{font-size:20px}
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
+<div id="cover" onclick="enterReport()">
+  <div class="cover-logo">agAI</div>
+  <div class="cover-subtitle">Agricultural Intelligence</div>
+  <div class="cover-divider"></div>
+  <div class="cover-title">Overview for EDGE Dairy Consulting</div>
+  <div class="cover-farm">LONE OAK FARMS &nbsp;·&nbsp; DAIRY #135</div>
+  <div class="cover-period">MARCH 2026 BENCHMARK REPORT</div>
+  <div class="cover-cta">Enter Report</div>
+</div>
+
+<script>
+function enterReport() {
+  var cover = document.getElementById('cover');
+  cover.classList.add('leaving');
+  setTimeout(function() { cover.style.display = 'none'; }, 500);
+}
+</script>
+
   <div style="display:flex;align-items:baseline">
     <div class="header-farm">LONE OAK FARMS</div>
     <div class="header-id">#135</div>
   </div>
   <div class="header-meta">
-    <div>EDGE DAIRY CONSULTING — BENCHMARK REPORT</div>
-    <div class="header-badge">JANUARY 2026</div>
+    <div>EDGE DAIRY CONSULTING — BENCHMARK REPORT &nbsp;·&nbsp; PARSED &amp; EVALUATED BY <span style="color:var(--accent);font-weight:600">agAI</span></div>
+    <div class="header-badge">MARCH 2026</div>
   </div>
 </header>
 
@@ -130,7 +177,7 @@ td.bold{font-weight:600;color:var(--text)}
   <div class="nav-tab" onclick="showTab('culling',this)">Culling</div>
   <div class="nav-tab" onclick="showTab('udder',this)">Udder Health</div>
   <div class="nav-tab" onclick="showTab('financial',this)">Financial</div>
-  <div class="nav-tab" onclick="showTab('trends',this)">12-Month Trends</div>
+  <div class="nav-tab" onclick="showTab('trends',this)">Trends</div>
 </nav>
 
 <main class="main">
@@ -141,7 +188,7 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="summary-cell">
       <div class="summary-cell-label">Total Herd</div>
       <div class="summary-cell-val">—</div>
-      <div class="summary-cell-sub">Milking Cows + Heifers</div>
+      <div class="summary-cell-sub">Cows on inventory</div>
     </div>
     <div class="summary-cell">
       <div class="summary-cell-label">Milking Cows</div>
@@ -160,7 +207,12 @@ td.bold{font-weight:600;color:var(--text)}
     </div>
   </div>
 
-  <div class="section-heading">Performance vs. EDGE Database</div>
+  <div class="section-heading">Key Observations — March 2026</div>
+  <div class="insights-block">
+    <div class="alert green"><span class="alert-icon">✅</span><span class="alert-text">No major flags this month — all key metrics are within normal ranges.</span></div>
+  </div>
+
+  <div class="section-heading">Performance vs. EDGE Database — March 2026</div>
   <div class="kpi-grid">
     
     <div class="kpi-card neutral">
@@ -200,7 +252,7 @@ td.bold{font-weight:600;color:var(--text)}
     </div>
     
     <div class="kpi-card neutral">
-      <div class="kpi-label">SNF %</div>
+      <div class="kpi-label">Bulk Tank SNF %</div>
       <div class="kpi-value">—</div>
       <div class="kpi-sub"><span class="kpi-pct">—</span> Avg —</div>
       <div class="pct-bar-wrap"><div class="pct-bar-track">
@@ -239,7 +291,7 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- HERD DATA -->
 <section id="herd" class="section">
-  <div class="section-heading">Herd Inventory — January 2026</div>
+  <div class="section-heading">Herd Inventory — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Cow Inventory</div>
@@ -252,9 +304,9 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>Dry</td><td>—</td></tr>
           <tr><td>% Dry</td><td>—</td></tr>
           <tr><td>Lactation 1</td><td>—</td></tr>
-          <tr><td>Lactation >1</td><td>—</td></tr>
-          <tr><td>% Lactation 1</td><td>—</td></tr>
-          <tr><td>Average Lactation</td><td class="bold">—</td></tr>
+          <tr><td>Lactation &gt;1</td><td>—</td></tr>
+          <tr><td>% Lact=1</td><td>—</td></tr>
+          <tr><td>Avg Lactation</td><td class="bold">—</td></tr>
           <tr><td>Avg DIM Milking</td><td>—</td></tr>
         </tbody>
       </table>
@@ -268,25 +320,24 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>Heifers 0–12 mo</td><td>—</td></tr>
           <tr><td>Heifers 13–24 mo</td><td>—</td></tr>
           <tr><td>Heifers % of Total Herd</td><td>—</td></tr>
-          <tr><td>Cow : Heifer Ratio</td><td class="bold">—</td></tr>
+          <tr><td>Cow:Heifer Ratio</td><td class="bold">—</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="section-heading">12-Month Trend</div>
+  <div class="section-heading">Trend</div>
   <div class="trend-wrap">
     <div class="data-table-wrap">
       <div class="data-table-title">Herd Data — Monthly</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th></tr></thead>
         <tbody>
-          <tr><td>Total Herd</td><td>—</td></tr>
-          <tr><td>Milking</td><td>—</td></tr>
-          <tr><td>% Milking</td><td>—</td></tr>
-          <tr><td>% Dry</td><td>—</td></tr>
-          <tr><td>Avg DIM Milking</td><td>—</td></tr>
-          <tr><td>% Lact=1</td><td>—</td></tr>
+          <tr><td>Total Herd</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Milking</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>% Milking</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>% Dry</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Avg DIM Milking</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>% Lact=1</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
         </tbody>
       </table>
     </div>
@@ -295,16 +346,16 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- PRODUCTION -->
 <section id="production" class="section">
-  <div class="section-heading">Milk Production — January 2026</div>
+  <div class="section-heading">Milk Production — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Bulk Tank Results</div>
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>EDGE Avg</th><th>12M Avg</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk (lbs)</td><td class="bold">—</td><td>—</td><td>—</td></tr>
-          <tr><td>Bulk Tank ECM</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Bulk Tank MCM</td><td>—</td><td></td><td>—</td></tr>
+          <tr><td>Milk (lbs)</td><td class="bold">—</td><td>—</td><td>—</td></tr>
+          <tr><td>ECM (lbs)</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>MCM (lbs)</td><td>—</td><td></td><td>—</td></tr>
           <tr><td>150 Day ACM</td><td>—</td><td></td><td>—</td></tr>
           <tr><td>Fat %</td><td class="good">—</td><td>—</td><td>—</td></tr>
           <tr><td>Protein %</td><td>—</td><td>—</td><td>—</td></tr>
@@ -313,36 +364,35 @@ td.bold{font-weight:600;color:var(--text)}
       </table>
     </div>
     <div class="data-table-wrap">
-      <div class="data-table-title">Early Lactation Milk by Group</div>
+      <div class="data-table-title">Early Lactation Milk</div>
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
           <tr><td>W4MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>W4MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W4MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W4MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>W8MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>W8MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W8MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W8MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>W12MK Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>W12MK Lact=2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>W12MK Lact>2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>W12MK Lact&gt;2</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="section-heading">Production Trend</div>
+  <div class="section-heading">Trend</div>
   <div class="trend-wrap">
     <div class="data-table-wrap">
       <div class="data-table-title">Bulk Tank — Monthly</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank ECM</td><td>—</td></tr>
-          <tr><td>Bulk Tank Fat %</td><td>—</td></tr>
-          <tr><td>Bulk Tank Prot %</td><td>—</td></tr>
-          <tr><td>Bulk Tank SNF %</td><td>—</td></tr>
+          <tr><td>Bulk Tank Milk</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Bulk Tank ECM</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Bulk Tank Fat %</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Bulk Tank Prot %</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Bulk Tank SNF %</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
         </tbody>
       </table>
     </div>
@@ -351,7 +401,7 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- REPRODUCTION -->
 <section id="reproduction" class="section">
-  <div class="section-heading">Reproductive Performance — January 2026</div>
+  <div class="section-heading">Reproductive Performance — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Annual Rolling Rates — All Cows</div>
@@ -364,7 +414,8 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>1st Serv Conc Rate</td><td class="bold">—</td><td>—</td><td class="good">—</td><td class="poor">—</td></tr>
           <tr><td>Days Open</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Herd Pregnant</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% DNB</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Abortion Rate (Current)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Abortion Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -376,15 +427,13 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>% Preg at 100 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Preg at 150 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Preg at 200 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Abortion Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="two-col">
     <div class="data-table-wrap">
-      <div class="data-table-title">Lact=1 Reproductive Rates</div>
+      <div class="data-table-title">Lact=1 Rates</div>
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
@@ -396,7 +445,7 @@ td.bold{font-weight:600;color:var(--text)}
       </table>
     </div>
     <div class="data-table-wrap">
-      <div class="data-table-title">Lact>1 Reproductive Rates</div>
+      <div class="data-table-title">Lact&gt;1 Rates</div>
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
         <tbody>
@@ -412,7 +461,7 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- HEIFERS -->
 <section id="heifers" class="section">
-  <div class="section-heading">Heifer Performance — January 2026</div>
+  <div class="section-heading">Heifer Performance — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Heifer Reproduction</div>
@@ -428,7 +477,7 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>% Preg at 450 Days</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Preg at 500 Days</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Preg at 550 Days</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Heifer Completion Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Completion Rate</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -448,7 +497,7 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- CULLING -->
 <section id="culling" class="section">
-  <div class="section-heading">Culling & Mortality — January 2026</div>
+  <div class="section-heading">Culling &amp; Mortality — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Early Removal (&lt;60 DIM)</div>
@@ -459,7 +508,7 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>% Sold &lt;60 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% Died &lt;60 DIM</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>% S&amp;D Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% S&amp;D Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% S&amp;D Lact&gt;1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -470,7 +519,7 @@ td.bold{font-weight:600;color:var(--text)}
         <tbody>
           <tr><td>Cull Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>Cull Rate Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>Cull Rate Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>Cull Rate Lact&gt;1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
           <tr><td>Death Rate (Annual)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
@@ -489,7 +538,7 @@ td.bold{font-weight:600;color:var(--text)}
       </table>
     </div>
     <div class="data-table-wrap">
-      <div class="data-table-title">Dry Period — Lact>1</div>
+      <div class="data-table-title">Dry Period — Lact&gt;1</div>
       <table>
         <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th></tr></thead>
         <tbody>
@@ -506,7 +555,7 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- UDDER HEALTH -->
 <section id="udder" class="section">
-  <div class="section-heading">Udder Health — January 2026</div>
+  <div class="section-heading">Udder Health — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">SCC &amp; Clinical Mastitis</div>
@@ -517,7 +566,7 @@ td.bold{font-weight:600;color:var(--text)}
           <tr><td>% Clinical Mastitis New</td><td>—</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
           <tr><td>% Clinical Mastitis Repeat</td><td>—</td><td>—</td><td class="poor">—</td><td class="good">—</td></tr>
           <tr><td>% Mast &lt;30 DIM Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-          <tr><td>% Mast &lt;30 DIM Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td>% Mast &lt;30 DIM Lact&gt;1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
         </tbody>
       </table>
     </div>
@@ -526,28 +575,16 @@ td.bold{font-weight:600;color:var(--text)}
       <table>
         <thead><tr><th>Month</th><th>Bulk Tank SCC</th></tr></thead>
         <tbody>
-          <tr><td>Jan-26</td><td>3 15,962</td></tr>
+          
         </tbody>
       </table>
     </div>
-  </div>
-  <div class="data-table-wrap">
-    <div class="data-table-title">Calving Outcomes</div>
-    <table>
-      <thead><tr><th>Metric</th><th>Current</th><th>12M Avg</th><th>High</th><th>Low</th></tr></thead>
-      <tbody>
-        <tr><td>% Heifer Calves</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA (All)</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA Lact=1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-        <tr><td>% DOA Lact>1</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      </tbody>
-    </table>
   </div>
 </section>
 
 <!-- FINANCIAL -->
 <section id="financial" class="section">
-  <div class="section-heading">Financial Performance — January 2026</div>
+  <div class="section-heading">Financial Performance — March 2026</div>
   <div class="two-col">
     <div class="data-table-wrap">
       <div class="data-table-title">Milk Pricing</div>
@@ -586,13 +623,13 @@ td.bold{font-weight:600;color:var(--text)}
     <div class="data-table-wrap">
       <div class="data-table-title">Monthly Financial Summary</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th></tr></thead>
         <tbody>
-          <tr><td>Mailbox Milk $/cwt</td><td>$16.03</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$5.25</td></tr>
-          <tr><td>Feed Cost/Hd</td><td>$7.70</td></tr>
-          <tr><td>Feed Cost/cwt</td><td>$10.35</td></tr>
-          <tr><td>IOFC/cwt</td><td>$5.68</td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Actual IOFC/Hd</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Feed Cost/Hd</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Feed Cost/cwt</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>IOFC/cwt</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
         </tbody>
       </table>
     </div>
@@ -601,22 +638,22 @@ td.bold{font-weight:600;color:var(--text)}
 
 <!-- TRENDS -->
 <section id="trends" class="section">
-  <div class="section-heading">12-Month Rolling Summary</div>
+  <div class="section-heading">12-Month Rolling Trends</div>
   <div class="trend-wrap">
     <div class="data-table-wrap">
       <div class="data-table-title">Key Metrics — All Months</div>
       <table>
-        <thead><tr><th>Metric</th><th>Jan-26</th></tr></thead>
+        <thead><tr><th>Metric</th><th>Trend</th></tr></thead>
         <tbody>
-          <tr><td>Bulk Tank Milk</td><td>—</td></tr>
-          <tr><td>Bulk Tank SCC</td><td>3 15,962</td></tr>
-          <tr><td>Preg Rate Annual</td><td>—</td></tr>
-          <tr><td>Preg Rate Heifers</td><td>23%</td></tr>
-          <tr><td>Abortion Rate (Current)</td><td>—</td></tr>
-          <tr><td>Cull Rate (Annual)</td><td>35.8%</td></tr>
-          <tr><td>Death Rate (Annual)</td><td>6.4%</td></tr>
-          <tr><td>Actual IOFC/Hd</td><td>$5.25</td></tr>
-          <tr><td>Mailbox Milk $/cwt</td><td>$16.03</td></tr>
+          <tr><td>Bulk Tank Milk</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Bulk Tank SCC</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Preg Rate Annual</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Preg Rate Heifers</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Abortion Rate (Current)</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Cull Rate (Annual)</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Death Rate (Annual)</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Actual IOFC/Hd</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
+          <tr><td>Mailbox Milk $/cwt</td><td style='padding:4px 8px;white-space:nowrap'></td></tr>
         </tbody>
       </table>
     </div>
@@ -626,7 +663,7 @@ td.bold{font-weight:600;color:var(--text)}
 </main>
 
 <footer class="site-footer">
-  LONE OAK FARMS — #135 &nbsp;|&nbsp; EDGE DAIRY CONSULTING &nbsp;|&nbsp; JANUARY 2026 BENCHMARK REPORT
+  LONE OAK FARMS — #135 &nbsp;|&nbsp; EDGE DAIRY CONSULTING &nbsp;|&nbsp; MARCH 2026 BENCHMARK REPORT
 </footer>
 
 <script>
